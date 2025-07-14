@@ -1,0 +1,1333 @@
+\documentclass[12pt,a4paper]{article}
+
+% Page setup
+\usepackage[a4paper,top=1in,bottom=1in,left=0.5in,right=0.5in]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{etoolbox}
+\usepackage[nonumberlist]{glossaries}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{colortbl}
+
+% Table packages
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{multicol}
+
+% List formatting
+\usepackage{enumitem}
+
+% Dotted lines package
+\usepackage{dashrule}
+
+% Code listings package for syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,skins}
+
+% Thai language support
+\usepackage{xunicode}
+\usepackage{xltxtra}
+
+% Optimized fonts for Thai language - using Medium weight
+\setmainfont[
+    Path=./font/Sarabun/,
+    UprightFont=*-Regular,
+    BoldFont=*-Medium,
+    ItalicFont=*-Italic,
+    BoldItalicFont=*-MediumItalic,
+    Scale=0.90,
+    Ligatures=TeX,
+    WordSpace=1.2,
+    PunctuationSpace=1.1
+]{Sarabun}
+
+\newfontfamily\thaifont[
+    Path=./font/Sarabun/,
+    UprightFont=*-Regular,
+    BoldFont=*-Medium,
+    ItalicFont=*-Italic,
+    BoldItalicFont=*-MediumItalic,
+    Scale=0.90,
+    Ligatures=TeX,
+    WordSpace=1.2,
+    PunctuationSpace=1.1,
+    Script=Thai,
+    Language=Thai
+]{Sarabun}
+
+% Light weight font family optimized for Thai
+\newfontfamily\thailightfont[
+    Path=./font/Sarabun/,
+    UprightFont=*-Light,
+    BoldFont=*-Medium,
+    ItalicFont=*-LightItalic,
+    BoldItalicFont=*-MediumItalic,
+    Scale=0.90,
+    Ligatures=TeX,
+    WordSpace=1.2,
+    PunctuationSpace=1.1,
+    Script=Thai,
+    Language=Thai
+]{Sarabun}
+
+% Font commands for easy switching
+\newcommand{\textlight}[1]{{\thailightfont #1}}
+\newcommand{\thailight}{\thailightfont}
+
+% Thai typography optimization commands
+\newcommand{\optimalthai}[1]{{\thaifont #1}}
+
+% Monospace font for Thai in code blocks
+\newfontfamily\thaifonttt[
+    Path=./font/Sarabun/,
+    UprightFont=*-Regular,
+    BoldFont=*-Medium,
+    Scale=0.9,
+    Ligatures=TeX,
+    Script=Thai,
+    Language=Thai
+]{Sarabun}
+
+% Additional packages for better Thai support
+\usepackage{polyglossia}
+\setdefaultlanguage{thai}
+\setotherlanguage{english}
+
+% Thai line breaking settings - optimized
+\XeTeXlinebreaklocale "th"
+\XeTeXlinebreakskip = 0pt plus 2pt minus 1pt
+
+% Thai typography enhancements
+\frenchspacing 
+\tolerance=1000
+\emergencystretch=3em
+
+% Thai punctuation spacing
+\XeTeXinterchartokenstate = 1
+
+% Better Thai paragraph spacing
+\setlength{\parskip}{0.5\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip}
+\setlength{\parindent}{2em}
+
+% Custom section numbering with period and reduced spacing
+\renewcommand{\thesection}{\arabic{section}.}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+
+% Custom dotted rule command
+\newcommand{\dotrule}[1]{\hdashrule{#1}{0.6pt}{1pt}}
+
+% Flowchart and diagram packages
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usetikzlibrary{shapes.geometric, arrows, positioning, fit, calc}
+
+% Define flowchart styles
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=red!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{decision} = [diamond, minimum width=1.5cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill=yellow!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+% Code styling configuration
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+% Monospace font for code
+\newfontfamily\codefont{Menlo}[
+    Scale=0.85
+]
+
+% Python code style
+\lstdefinestyle{python}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\codefont\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=10pt,            
+    xleftmargin=10pt,
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    columns=fixed,
+    basewidth=0.6em,
+    language=Python
+}
+
+% Custom code box using tcolorbox
+\newtcolorbox{codebox}[2][]{
+    colback=white!5!white,
+    colframe=gray!75!black,
+    fonttitle=\bfseries,
+    title=#2,
+    top=0pt,
+    bottom=0pt,
+    boxsep=0pt,
+    toptitle=0pt,
+    bottomtitle=0pt,
+    #1
+}
+
+% Custom result box for output display
+\newtcolorbox{resultbox}[2][]{
+    colback=white!5!white,
+    colframe=green!75!black,
+    fonttitle=\bfseries,
+    title=#2,
+    top=3pt,
+    bottom=3pt,
+    left=4pt,
+    #1
+}
+
+% Custom find answer box for output display
+\newtcolorbox{findanswerbox}[2][]{
+    colback=white!5!white,
+    colframe=gray!75!black,
+    fonttitle=\bfseries,
+    title=#2,
+    #1
+}
+
+% Custom exercise box for exercises
+\newtcolorbox{exercisebox}[2][]{
+    colback=white!5!white,
+    colframe=gray!75!black,
+    fonttitle=\bfseries,
+    title=#2,
+    #1
+}
+
+% Custom notice box for important messages
+\newtcolorbox{noticebox}[2][]{
+    colback=yellow!5!white,
+    colframe=magenta!90!black,
+    fonttitle=\bfseries,
+    title=#2,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    boxrule=2pt,
+    arc=3pt,
+    auto outer arc,
+    #1
+}
+
+% Custom notice box for important messages
+\newtcolorbox{answerbox}[2][]{
+    colback=yellow!5!white,
+    colframe=magenta!50!black,
+    fonttitle=\bfseries,
+    title=#2,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    boxrule=2pt,
+    arc=3pt,
+    auto outer arc,
+    #1
+}
+
+\begin{document}
+
+% Title Page
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries {คอมพิวเตอร์โปรแกรมมิ่ง (โครงการพี่ติวน้อง)}\par}
+    {\textlight{เพื่อส่งเสริมการมีส่วนร่วมของรุ่นพี่ในการถ่ายทอดความรู้แก้รุ่นน้อง เพื่อเสริมความเข้าใจในรายวิชา}\par}
+    \vspace{2cm}
+
+    {\textlight{\textcolor{darkgray}{*ยงยุทธ ชวนขุนทด, เมธัส ทองจันทร์, ศุภกร จิรศิริวรกุล, มชัญชยา ประยูรมณี}}\par}
+    {\normalfont ประจำวันที่ 17 กรกฎาคม พ.ศ. 2568\par}
+    
+    \vfill
+    
+    {\thailight ภาควิชาเทคโนโลยีสารสนเทศ\par}
+    {\thailight มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ วิทยาเขตปราจีนบุรี\par}
+\end{titlepage}
+
+% Table of Contents
+\tableofcontents
+\newpage
+
+\section{ชนิดโฟลวชาร์ต (Flowchart Types)}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+% Start or Stop symbol
+\node (start) [startstop] {Start or Stop};
+\node (startd1) [right of=start, xshift=1.1cm] {\textbf{Oval}: Start/End};
+
+% Process symbol
+\node (process) [process, below of=start] {Process};
+\node (processd1) [right of=process, xshift=2cm] {\textbf{Rectangle}: Process/Action};
+
+% Output or Input symbol
+\node (io) [io, below of=process] {I/O};
+\node (iod1) [right of=io, xshift=2cm] {\textbf{Trapezium}: Input/Output};
+
+% Decision symbol
+\node (decision) [decision, below of=io] {Decision?};
+\node (desisiond1) [right of=decision, xshift=1.5cm] {\textbf{Diamond}: Decision};
+
+\end{tikzpicture}
+\caption{ตัวอย่างโฟลวชาร์ตพื้นฐาน}
+\end{figure}
+
+\hspace{1cm}\textlight{โฟลวชาร์ต (Flowchart) เป็นเครื่องมือที่ใช้ในการแสดงลำดับขั้นตอนของกระบวนการหรืออัลกอริธึมในรูปแบบกราฟิก โฟลวชาร์ตประกอบด้วยสัญลักษณ์ต่างๆ ที่แสดงถึงการเริ่มต้นหรือสิ้นสุด (Start/Stop), การดำเนินการ (Process), การตัดสินใจ (Decision), และการป้อนข้อมูลหรือแสดงผล (Input/Output) การใช้โฟลวชาร์ตช่วยให้เข้าใจและวางแผนการเขียนโปรแกรมได้ง่ายขึ้น}
+
+\hspace{1cm}\textlight{ในแต่ละสัญลักษณ์จะถูกเชื่อมด้วย ลูกศร (Arrow) เพื่อแสดงทิศทางของการไหลของข้อมูลหรือการดำเนินการในโฟลวชาร์ต การใช้โฟลวชาร์ตช่วยให้สามารถวางแผนและออกแบบโปรแกรมได้อย่างมีประสิทธิภาพ และยังช่วยในการสื่อสารแนวคิดกับผู้อื่นได้ง่ายขึ้น}
+
+\vspace{6cm}
+
+\section{ตัวแปรและชนิดข้อมูล (Variables and Data Types)}
+\hspace{1cm}\textlight{สิ่งสำคัญในการเขียนโปรแกรมคือการเข้าใจตัวแปรและชนิดข้อมูล ซึ่งเป็นพื้นฐานของการจัดเก็บและจัดการข้อมูลในโปรแกรม ตัวแปรใช้เพื่อเก็บข้อมูลที่สามารถ เปลี่ยนแปลง (Mutable) และ ไม่สามารถเปลี่ยนแปลง (Immutable) ได้ในระหว่างการทำงานของโปรแกรม และชนิดข้อมูลกำหนดประเภทของข้อมูลที่ตัวแปรนั้นสามารถเก็บได้}
+
+\subsection{ตัวแปร (Variables)}
+\hspace{1cm}\textlight{ตัวแปรเป็นชื่อที่ใช้เพื่ออ้างถึงข้อมูลที่เก็บอยู่ในหน่วยความจำของคอมพิวเตอร์ ตัวแปรสามารถเปลี่ยนแปลงค่าได้ในระหว่างการทำงานของโปรแกรม และยังมีตัวแปรที่ไม่สามารถเปลี่ยนแปลงค่าได้ (Immutable) เช่น ค่าคงที่ (Constants) ตัวแปรในภาษาโปรแกรมต่างๆ อาจมีรูปแบบการประกาศที่แตกต่างกัน}
+
+\begin{codebox}{(ตัวอย่าง) ตัวแปรใน Python}
+\begin{lstlisting}[style=python]
+x = 10
+y = 20
+
+print(x, y)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+10 20
+\end{verbatim}
+\end{resultbox}
+
+\vspace{0.1cm}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+\node (start) [startstop] {Start};
+\node (x) [process, below of=start] {x = 10};
+\node (y) [process, below of=x] {y = 20};
+\node (output) [io, below of=y] {x, y};
+\node (stop) [startstop, below of=output] {Stop};
+
+\draw [arrow] (start) -- (x);
+\draw [arrow] (x) -- (y);
+\draw [arrow] (y) -- (output);
+\draw [arrow] (output) -- (stop);
+
+\end{tikzpicture}
+\caption{ตัวอย่าง Flowchart ของการประกาศตัวแปร}
+\end{figure}
+
+\subsection{ชนิดข้อมูล (Data Types)}
+
+\textlight{ชนิดข้อมูล (Data Types) เป็นการกำหนดประเภทของข้อมูลที่ตัวแปรนั้นสามารถเก็บได้ ชนิดข้อมูลที่พบบ่อย ได้แก่}
+
+\begin{itemize}
+    \item \textbf{Integer (int)}: \textcolor{darkgray}{ตัวเลขจำนวนเต็ม เช่น 1, 2, -3}
+    \item \textbf{Float (float)}: \textcolor{darkgray}{ตัวเลขทศนิยม เช่น 3.14, -0.001}
+    \item \textbf{String (str)}: \textcolor{darkgray}{ข้อความหรืออักขระ เช่น "Hello", "123"}
+    \item \textbf{Boolean (bool)}: \textcolor{darkgray}{ค่าจริงหรือเท็จ เช่น True, False}
+    \item \textbf{List (list)}: \textcolor{darkgray}{คอลเลกชันของข้อมูลที่สามารถเปลี่ยนแปลงได้ เช่น [1, 2, 3], ["apple", "banana"]}
+    \item \textbf{Tuple (tuple)}: \textcolor{darkgray}{คอลเลกชันของข้อมูลที่ไม่สามารถเปลี่ยนแปลงได้ เช่น (1, 2, 3), ("apple", "banana")}
+    \item \textbf{Dictionary (dict)}: \textcolor{darkgray}{คอลเลกชันของคู่คีย์-ค่า เช่น \{"name": "John", "age": 30\}}
+\end{itemize}
+
+\begin{codebox}{(ตัวอย่าง) ชนิดข้อมูลใน Python}
+\begin{lstlisting}[style=python]
+# Integer
+x = 10
+
+# Float
+y = 3.14
+
+# String
+name = "First"
+
+# Boolean
+is_active = True
+
+# List
+scores = [85, 90, 78, 92]
+
+# Tuple
+coordinates = (10.5, 20.3)
+
+# Dictionary
+person = {"name": "John", "age": 30}
+
+print(x, y, name, is_active, scores, coordinates, person)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+10 3.14 First True [85, 90, 78, 92] (10.5, 20.3) {'name': 'John', 'age': 30}
+\end{verbatim}
+\end{resultbox}
+
+\textlight{ในแต่ละชนิดข้อมูลจะมี Utility function (ฟังก์ชันที่ใช้ในการจัดการข้อมูล) ที่ช่วยให้สามารถทำงานกับข้อมูลได้ง่ายขึ้น}
+
+\section{คำสั่งแบบมีเงื่อนไข (Conditional Statements)}
+
+\hspace{1cm}\textlight{คำสั่งแบบมีเงื่อนไข (Conditional Statements) เป็นคำสั่งที่ใช้ในการตัดสินใจว่าควรทำอะไรต่อไปในโปรแกรมตามเงื่อนไขที่กำหนด คำสั่งเหล่านี้ช่วยให้โปรแกรมสามารถทำงานได้อย่างยืดหยุ่นและตอบสนองต่อสถานการณ์ต่างๆ (โค้ดด้านล่าง)}
+
+\subsection{การใช้คำสั่ง if เบื้องต้น}
+
+\hspace{1cm}\textlight{คำสั่ง if ใช้เพื่อตรวจสอบเงื่อนไข ถ้าเงื่อนไขเป็นจริง (True) จะทำการดำเนินการตามที่กำหนดไว้ในบล็อกของ if ดังกล่าว}\\
+\textlight{\textbf{สิ่งที่ต้องการ: ฉันต้องการให้แสดงข้อความ `Hello` หากตัวแปร `name` มีค่าเป็น `KMUTNB`}}
+
+\begin{codebox}{(ตัวอย่าง) การใช้ if ใน Python}
+\begin{lstlisting}[style=python]
+name = "KMUTNB"
+
+if name == "KMUTNB":
+    print("Hello")
+\end{lstlisting}
+\end{codebox}
+
+\vspace{0.5cm}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+% Nodes (if statement)
+\node (start) [startstop] {Start};
+\node (name) [process, below of=start] {name = "KMUTNB"};
+
+\node (decision) [decision, below of=name, yshift=-1.5cm] {name == "KMUTNB"};
+
+\node (output) [io, right of=decision, xshift=3cm] {"Hello"};
+
+\node (stop) [startstop, below of=decision, yshift=-1.8cm] {Stop};
+
+% Arrows (if statement)
+\draw [arrow] (start) -- (name);
+\draw [arrow] (name) -- (decision);
+\draw [arrow] (decision) -- node[anchor=west, xshift=-0.8cm, yshift=0.4cm] {True} (output);
+\draw [arrow] (output) |- (stop);
+\draw [arrow] (decision) -- node[anchor=east, yshift=0.3cm] {False} (stop);
+
+\end{tikzpicture}
+\caption{ตัวอย่างโฟลวชาร์ตเงื่อนไข if}
+\end{figure}
+
+\subsection{การใช้คำสั่ง if-else เบื้องต้น}
+\hspace{1cm}\textlight{คำสั่ง if-else ใช้เพื่อตรวจสอบเงื่อนไข ถ้าเงื่อนไขเป็นจริง (True) จะทำการดำเนินการตามที่กำหนดไว้ในบล็อกของ if แต่ถ้าเงื่อนไขเป็นเท็จ (False) จะทำการดำเนินการตามที่กำหนดไว้ในบล็อกของ else}\\[0.5cm]
+\textlight{\textbf{สิ่งที่ต้องการ: ฉันต้องการให้แสดงข้อความ `Hello` หากตัวแปร `name` มีค่าเป็น `KMUTNB` และแสดงข้อความ `Goodbye` หากไม่ตรงกับเงื่อนไข ใดๆ}}
+
+\begin{codebox}{(ตัวอย่าง) การใช้ if-else ใน Python}
+\begin{lstlisting}[style=python]
+name = "KMITL"
+
+if name == "KMUTNB":
+    print("Hello")
+else:
+    print("Goodbye")
+\end{lstlisting}
+\end{codebox}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+% Nodes (if-else statement)
+\node (start) [startstop] {Start};
+\node (name) [process, below of=start] {name = "KMITL"};
+
+\node (decision) [decision, below of=name, yshift=-1.5cm] {name == "KMUTNB"};
+
+\node (trueoutput) [io, right of=decision, xshift=3cm] {"Hello"};
+\node (falseoutput) [io, below of=decision, yshift=-2cm] {"Goodbye"};
+
+\node (stop) [startstop, below of=falseoutput] {Stop};
+
+% Arrows (if-else statement)
+\draw [arrow] (start) -- (name);
+\draw [arrow] (name) -- (decision);
+\draw [arrow] (decision) -- node[anchor=west, xshift=-0.8cm, yshift=0.4cm] {True} (trueoutput);
+\draw [arrow] (trueoutput) |- (stop);
+\draw [arrow] (decision) -- node[anchor=east, yshift=0.3cm] {False} (falseoutput);
+\draw [arrow] (falseoutput) -- (stop);
+
+\end{tikzpicture}
+\caption{ตัวอย่างโฟลวชาร์ตเงื่อนไข if-else}
+\end{figure}
+
+\subsection{การใช้คำสั่ง if-elif-else เบื้องต้น}
+\hspace{1cm}\textlight{คำสั่ง if-elif-else ใช้เพื่อตรวจสอบหลายเงื่อนไข ถ้าเงื่อนไขแรกเป็นจริง (True) จะทำการดำเนินการตามที่กำหนดไว้ในบล็อกของ if แต่ถ้าเงื่อนไขแรกเป็นเท็จ (False) จะตรวจสอบเงื่อนไขถัดไป (elif) และถ้าไม่มีเงื่อนไขใดเป็นจริง จะทำการดำเนินการตามที่กำหนดไว้ในบล็อกของ else}\\[0.5cm]
+\textlight{\textbf{สิ่งที่ต้องการ: ฉันต้องการให้แสดงข้อความ `Hello` หากตัวแปร `name` มีค่าเป็น `KMUTNB` , แสดงข้อความ `Goodbye` หากตัวแปร `name` มีค่าเป็น `KMITL`, และแสดงข้อความ `Unknown` หากไม่ใช่ทั้งสองกรณี}}
+
+\begin{codebox}{(ตัวอย่าง) การใช้ if-elif-else ใน Python}
+\begin{lstlisting}[style=python]
+name = "KMITL"
+
+if name == "KMUTNB":
+    print("Hello")
+elif name == "KMITL":
+    print("Goodbye")
+else:
+    print("Unknown")
+\end{lstlisting}
+\end{codebox}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+% Nodes (if-else statement)
+\node (start) [startstop] {Start};
+\node (name) [process, below of=start] {name = "KMUT"};
+
+\node (kmutnbdecision) [decision, below of=name, yshift=-1.5cm] {name == "KMUTNB"};
+\node (kmutnbtrue) [io, below of=kmutnbdecision, yshift=-2cm] {"Hello"};
+
+\node (kmitldecision) [decision, right of=kmutnbdecision, xshift=4cm] {name == "KMITL"};
+\node (kmitltrue) [io, below of=kmitldecision, yshift=-2cm] {"Goodbye"};
+
+\node (unknown) [io, right of=kmitltrue, xshift=3cm] {"Unknown"};
+
+\node (stop) [startstop, below of=kmutnbtrue] {Stop};
+
+% Arrows (if-else statement)
+\draw [arrow] (start) -- (name);
+\draw [arrow] (name) -- (kmutnbdecision);
+
+\draw [arrow] (kmutnbdecision) -- node[anchor=west, xshift=-0.6cm, yshift=0.4cm] {False} (kmitldecision.west);
+\draw [arrow] (kmutnbdecision) -- node[anchor=west, xshift=-1.2cm, yshift=0.4cm] {True} (kmutnbtrue);
+\draw [arrow] (kmutnbtrue) -- (stop);
+
+\draw [arrow] (kmitldecision) -- node[anchor=west, xshift=-1.2cm, yshift=0.4cm] {True} (kmitltrue);
+\draw [arrow] (kmitldecision.east) -- ++(3cm,0) |- node[anchor=east, xshift=1.3cm, yshift=3.5cm] {False} (unknown.north);
+\draw [arrow] (kmitltrue) |- (stop);
+
+\draw [arrow] (unknown) |- (stop);
+
+\end{tikzpicture}
+\caption{ตัวอย่างโฟลวชาร์ตเงื่อนไข if-elif-else}
+\end{figure}
+
+\subsection{บททดสอบ}
+
+\begin{noticebox}{แนะนำเครื่องหมายดำเนินการใหม่!}
+
+\textlight{เครื่องหมายดำเนินการทางคณิตศาสตร์ (Arithmetic Operators) ที่ใช้ใน Python มีดังนี้:}
+
+\begin{itemize}
+    \item \textbf{+} : \textcolor{darkgray}{การบวก (Addition)}
+    \item \textbf{-} : \textcolor{darkgray}{การลบ (Subtraction)}
+    \item \textbf{*} : \textcolor{darkgray}{การคูณ (Multiplication)}
+    \item \textbf{/} : \textcolor{darkgray}{การหาร (Division) - ผลลัพธ์เป็นทศนิยม}
+    \item \textbf{//} : \textcolor{darkgray}{การหารปัดเศษลง (Floor Division) - ผลลัพธ์เป็นจำนวนเต็ม}
+    \item \textbf{\%} : \textcolor{darkgray}{การหาเศษเหลือจากการหาร (Modulus)}
+    \item \textbf{**} : \textcolor{darkgray}{การยกกำลัง (Exponentiation)}
+\end{itemize}
+
+\begin{codebox}{(ตัวอย่าง) การใช้ Arithmetic Operators}
+\begin{lstlisting}[style=python]
+a = 10
+b = 3
+
+print("a + b =", a + b)
+print("a - b =", a - b)
+print("a * b =", a * b)   
+print("a / b =", a / b)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+a + b = 13
+a - b = 7
+a * b = 30
+a / b = 3.333333...
+\end{verbatim}
+\end{resultbox}
+
+\textlight{การใช้งาน Arithmetic Operators กับ Conditional Statements}
+
+\begin{codebox}{(ตัวอย่าง) การใช้ Arithmetic ตรวจสอบเลข}
+\begin{lstlisting}[style=python]
+number = 10
+
+if number / 2 == 5:
+    print(f"{number}, Wow!")
+else:
+    print(f"{number}, Okay!")
+\end{lstlisting}
+\end{codebox}
+
+\end{noticebox}
+
+\begin{noticebox}{แนะนำคำสั่งใหม่!}
+
+\textlight{หากต้องการรับค่าจากผู้ใช้ใน Python สามารถใช้คำสั่ง \textbf{input()} ได้ \textcolor{darkgray}{(ค่าชนิดข้อมูลเริ่มต้นของ input() คือ String)} เช่น}
+
+\begin{codebox}{}
+\begin{lstlisting}[style=python]
+name = input("Enter your name: ")
+print("Hello", name)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Enter your name: <ใส่ชื่อของคุณ>
+Hello <ชื่อของคุณ>
+\end{verbatim}
+\end{resultbox}
+
+\textlight{หากต้องการแปลงค่าที่รับเข้ามาเป็นชนิดข้อมูลอื่น เช่น แปลงเป็นจำนวนเต็ม สามารถใช้คลาส \textbf{int()} ได้ เช่น}
+
+\begin{codebox}{}
+\begin{lstlisting}[style=python]
+name = int(input("Enter your age: "))
+\end{lstlisting}
+\end{codebox}
+
+\textlight{และอื่น ๆ เช่น แปลงเป็นจำนวนทศนิยมด้วย \textbf{float()}}
+
+\end{noticebox}
+
+\subsubsection{แบบฝึกหัดการใช้เงื่อนไข}
+
+\textlight{แบบฝึกหัดเพื่อฝึกการใช้คำสั่งเงื่อนไขในการแก้ปัญหาจริง พร้อมทำ \textcolor{magenta}{Flowchart} และ\textcolor{magenta}{โค้ด Python} ตามโจทย์ที่กำหนด}
+
+\begin{exercisebox}{โจทย์ที่ 1: การตรวจสอบเลขคู่คี่}
+\textlight{จงเขียนโปรแกรมที่รับตัวเลขจากผู้ใช้ และแสดงผลว่าตัวเลขนั้นเป็นเลขคู่หรือเลขคี่}
+\end{exercisebox}
+
+\begin{exercisebox}{โจทย์ที่ 2: การตรวจสอบค่าเฉลี่ย}
+\textlight{จงเขียนโปรแกรมที่ค่าคะแนน 3 ส่วนจากผู้ใช้งาน และหาค่าเฉลี่ยของคะแนนนั้น ถ้าค่าเฉลี่ยมากกว่าหรือเท่ากับ 60 ให้แสดงผลว่า "ผ่าน" ถ้าน้อยกว่า 60 ให้แสดงผลว่า "ไม่ผ่าน"}
+\end{exercisebox}
+
+\begin{exercisebox}{โจทย์ที่ 3: การตรวจสอบอายุ}
+\textlight{จงเขียนโปรแกรมที่รับอายุจากผู้ใช้ และแสดงผลว่า:}
+\begin{itemize}
+    \item \textlight{อายุต่ำกว่า 13 ปี: เด็ก}
+    \item \textlight{อายุ 13-19 ปี: วัยรุ่น}
+    \item \textlight{อายุ 20-59 ปี: ผู้ใหญ่}
+    \item \textlight{อายุ 60 ปีขึ้นไป: ผู้สูงอายุ}
+\end{itemize}
+\end{exercisebox}
+
+\section{การวนซ้ำ (Iteration)}
+\hspace{1cm}\textlight{การวนซ้ำ (Iteration) เป็นกระบวนการที่ทำให้โปรแกรมสามารถทำงานซ้ำๆ ตามเงื่อนไขที่กำหนด การวนซ้ำช่วยให้สามารถทำงานกับชุดข้อมูลขนาดใหญ่ได้อย่างมีประสิทธิภาพ โดยไม่ต้องเขียนโค้ดซ้ำๆ หลายครั้ง โดยทั่วไปแล้ว การวนซ้ำใน Python มีสองรูปแบบหลักคือ \textcolor{magenta}{\textbf{for}} และ \textcolor{magenta}{\textbf{while}}}
+
+\begin{noticebox}{แนะนำเครื่องหมายเปรียบเทียบ!}
+
+\textlight{เครื่องหมายเปรียบเทียบ (Comparison Operators) ที่ใช้ในการตรวจสอบเงื่อนไข:}
+
+\begin{itemize}
+    \item \textbf{==} : \textcolor{darkgray}{เท่ากับ (Equal to)}
+    \item \textbf{!=} : \textcolor{darkgray}{ไม่เท่ากับ (Not equal to)}
+    \item \textbf{>} : \textcolor{darkgray}{มากกว่า (Greater than)}
+    \item \textbf{<} : \textcolor{darkgray}{น้อยกว่า (Less than)}
+    \item \textbf{>=} : \textcolor{darkgray}{มากกว่าหรือเท่ากับ (Greater than or equal to)}
+    \item \textbf{<=} : \textcolor{darkgray}{น้อยกว่าหรือเท่ากับ (Less than or equal to)}
+\end{itemize}
+
+\begin{codebox}{(ตัวอย่าง) การใช้ Comparison Operators}
+\begin{lstlisting}[style=python]
+age = 20
+score = 85
+
+# Comparison Operators
+print("age > 18:", age > 18)           # True
+print("score <= 90:", score <= 90)     # True
+print("age != 25:", age != 25)         # True
+print("age == 20:", age == 20)         # True
+print("score >= 80:", score >= 80)     # True
+print("age < 25:", age < 25)           # True
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+age > 18: True
+score <= 90: True
+age != 25: True
+age == 20: True
+score >= 80: True
+age < 25: True
+\end{verbatim}
+\end{resultbox}
+
+\end{noticebox}
+
+\begin{noticebox}{แนะนำเครื่องหมายตรรกะ!}
+
+\textlight{เครื่องหมายตรรกะ (Logical Operators) ที่ใช้ในการรวมเงื่อนไขหลายๆ อัน:}
+
+\begin{itemize}
+    \item \textbf{and} : \textcolor{darkgray}{และ - ต้องเป็นจริงทั้งสองฝั่ง}
+    \item \textbf{or} : \textcolor{darkgray}{หรือ - เป็นจริงฝั่งใดฝั่งหนึ่ง}
+    \item \textbf{not} : \textcolor{darkgray}{ไม่ - กลับค่าความจริง หรือ กลับค่าเป็นเท็จ}
+    \item \textbf{in} : \textcolor{darkgray}{อยู่ใน - ตรวจสอบว่าข้อมูลอยู่ในชุดข้อมูลหรือไม่}
+\end{itemize}
+
+\begin{codebox}{(ตัวอย่าง) การใช้ Logical Operators}
+\begin{lstlisting}[style=python]
+age = 20
+score = 85
+name = "Alice"
+subjects = ["Math", "Science", "English"]
+
+# Logical Operators
+print("age > 18 and score >= 80:", age > 18 and score >= 80)  # True
+print("age < 18 or score > 90:", age < 18 or score > 90)      # False
+print("not (age < 18):", not (age < 18))                     # True
+
+# In Operator
+print("'Math' in subjects:", "Math" in subjects)              # True
+print("'Art' in subjects:", "Art" in subjects)                # False
+print("'Alice' in name:", "Alice" in name)                   # True
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+age > 18 and score >= 80: True
+age < 18 or score > 90: False
+not (age < 18): True
+'Math' in subjects: True
+'Art' in subjects: False
+'Alice' in name: True
+\end{verbatim}
+\end{resultbox}
+
+\end{noticebox}
+
+\vspace{3cm}
+
+\subsection{การวนซ้ำด้วย \textcolor{magenta}{for}}
+
+\hspace{1cm}\textlight{คำสั่ง \textcolor{magenta}{for} ใช้ในการวนซ้ำผ่านชุดข้อมูล เช่น รายการ (List), ทูเพิล (Tuple), หรือช่วงของตัวเลข (Range) โดยจะทำงานตามจำนวนรอบที่กำหนดไว้ในชุดข้อมูลนั้นหรือตามจำนวนของข้อมูล}
+
+\begin{noticebox}{แนะนำคำสั่งใหม่!}
+\textlight{\textbf{range(start, stop, step)} เป็นฟังก์ชันที่ใช้สร้างลำดับของตัวเลข โดยมี 1 พารามิเตอร์ที่จำเป็นต้องใส่คือ start ส่วน stop และ step เป็นพารามิเตอร์ที่ไม่จำเป็นต้องใส่ \\[0.5cm] หากต้องการให้มีการหยุดที่ระยะห่างที่กำหนด สามารถใส่ตัวเลขได้ เช่น range(0, 10) ผลลัพธ์จะเป็นตัวเลขตั้งแต่ 0 ถึง 9 \\[0.5cm] แต่ถ้าหากต้องการให้มีการเพิ่มทีละ 2 สามารถใช้ range(0, 10, 2) ได้ ซึ่งจะได้ผลลัพธ์เป็น 0, 2, 4, 6, 8}
+\end{noticebox}
+
+\begin{codebox}{(ตัวอย่าง) การวนซ้ำด้วย range(...) กับ start ใน Python}
+\begin{lstlisting}[style=python]
+for i in range(2):
+    print("Iteration", i)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Iteration 0
+Iteration 1
+Iteration 2
+\end{verbatim}
+\end{resultbox}
+
+\vspace{0.5cm}
+
+\begin{codebox}{(ตัวอย่าง) การวนซ้ำด้วย range(...) กับ stop ใน Python}
+\begin{lstlisting}[style=python]
+for i in range(0, 2):
+    print("Iteration with stop", i)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Iteration with stop 0
+Iteration with stop 1
+\end{verbatim}
+\end{resultbox}
+
+\vspace{5cm}
+
+\begin{codebox}{(ตัวอย่าง) การวนซ้ำด้วย range(...) กับ step ใน Python}
+\begin{lstlisting}[style=python]
+for i in range(0, 10, 2):
+    print("Iteration with stop and step", i)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Iteration with stop and step 0
+Iteration with stop and step 2
+Iteration with stop and step 4
+Iteration with stop and step 6
+Iteration with stop and step 8
+\end{verbatim}
+\end{resultbox}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+% Nodes (For iteration)
+\node (start) [startstop] {Start};
+
+\node (range) [decision, below of=start, yshift=-1.5cm] {i in range(0, 6, 2)};
+\node (output) [io, below of=range, yshift=-2cm] {Print "Iteration with stop and step", i};
+
+\node (stop) [startstop, below of=output] {Stop};
+
+% Arrows (For itration)
+
+\draw [arrow] (start) -- (range);
+
+\draw [arrow] (range) -- node[anchor=west, xshift=-1.2cm, yshift=0.4cm] {True} (output);
+
+\draw [arrow] (output.west) |- (range.west);
+
+\draw [arrow] (range.east) -- ++(4cm,0) |- node[anchor=east, xshift=1.3cm, yshift=3.5cm] {False} (stop.east);
+
+\end{tikzpicture}
+\caption{ตัวอย่างโฟลวชาร์ตการวนซ้ำด้วย range(start, stop, step)}
+\end{figure}
+
+\begin{answerbox}{ไขข้อสงสัย!}
+\textlight{\textbf{โฟลวชาร์ต (Flowchart)} สามารถวางรูปแบบใดก็ได้ ตามความเหมาะสมของลักษณะการทำงานของโปรแกรม โดยทิศทางของลูกศรจะชี้ไปยังขั้นตอนถัดไปที่ต้องดำเนินการ การใช้โฟลวชาร์ตช่วยให้เข้าใจลำดับการทำงานของโปรแกรมได้ง่ายขึ้น}
+\end{answerbox}
+
+\begin{noticebox}{แนะนำคำสั่งใหม่!}
+\textlight{\textbf{len(obj)} คือฟังก์ชันที่ใช้ในการหาความยาวของชุดข้อมูล เช่น รายการ (List), สตริง (String), ทูเพิล (Tuple) หรือ ดิชันนารี (Dictionary) เป็นต้น \\[0.2cm] หากเป็น Dictionary จะนับจำนวนคีย์ (Keys) ที่มีอยู่ใน Dictionary นั้น ๆ}
+\end{noticebox}
+
+\begin{codebox}{(ตัวอย่าง) การวนซ้ำด้วย range(...) กับ len(...) ใน Python}
+\begin{lstlisting}[style=python]
+names = ["Alice", "Bob", "Charlie"]
+
+for i in range(len(names)):
+    print(names[i])
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Alice
+Bob
+Charlie
+\end{verbatim}
+\end{resultbox}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+% Nodes (For iteration)
+\node (start) [startstop] {Start};
+
+\node (names) [process, below of=start] {names = ["Alice", "Bob", "Charlie"]};
+
+\node (range) [decision, below of=names, yshift=-1.5cm] {i in range(len(names))};
+\node (output) [io, below of=range, yshift=-2cm] {Print names[i]};
+
+\node (stop) [startstop, below of=output] {Stop};
+
+% Arrows (For itration)
+
+\draw [arrow] (start) -- (names);
+
+\draw [arrow] (names) -- (range);
+
+\draw [arrow] (range) -- node[anchor=west, xshift=-1.2cm, yshift=0.4cm] {True} (output);
+
+\draw [arrow] (output.west) |- (range.west);
+
+\draw [arrow] (range.east) -- ++(1cm,0) |- node[anchor=east, xshift=1.3cm, yshift=3.5cm] {False} (stop.east);
+
+\end{tikzpicture}
+\caption{ตัวอย่างโฟลวชาร์ตการวนซ้ำด้วย for กับ range(...) และ len(...)}
+\end{figure}
+
+\textlight{หากต้องการวนซ้ำผ่านรายการ (List) หรือทูเพิล (Tuple) โดยตรง สามารถใช้คำสั่ง \textcolor{magenta}{for} ได้โดยไม่ต้องใช้ \textcolor{gray}{range}}
+
+\begin{codebox}{(ตัวอย่าง) การวนซ้ำด้วย for ใน Python}
+\begin{lstlisting}[style=python]
+names = ["Alice", "Bob", "Charlie"]
+
+for name in names:
+    print(name)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Alice
+Bob
+Charlie
+\end{verbatim}
+\end{resultbox}
+
+\vspace{1.5cm}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+% Nodes (For iteration)
+\node (start) [startstop] {Start};
+
+\node (names) [process, below of=start] {names = ["Alice", "Bob", "Charlie"]};
+
+\node (range) [decision, below of=names, yshift=-1.5cm] {name in names};
+\node (output) [io, below of=range, yshift=-2cm] {Print name};
+
+\node (stop) [startstop, below of=output] {Stop};
+
+% Arrows (For itration)
+
+\draw [arrow] (start) -- (names);
+
+\draw [arrow] (names) -- (range);
+
+\draw [arrow] (range) -- node[anchor=west, xshift=-1.2cm, yshift=0.4cm] {True} (output);
+
+\draw [arrow] (output.west) |- (range.west);
+
+\draw [arrow] (range.east) -- ++(1cm,0) |- node[anchor=east, xshift=1.3cm, yshift=3.5cm] {False} (stop.east);
+
+\end{tikzpicture}
+\caption{ตัวอย่างโฟลวชาร์ตการวนซ้ำด้วย for กับ ลิสต์ ตรงๆ}
+\end{figure}
+
+\section{Basic Programming Concepts}
+
+\subsection{Variables and Data Types}
+
+Variables are containers for storing data values. Different programming languages have different data types:
+
+\begin{codebox}{}
+\begin{lstlisting}[style=python]
+
+# Integer variable
+age = 25
+
+# String variable
+name = "John Doe"
+
+# Float variable
+height = 5.9
+
+# Boolean variable
+is_student = True
+
+# List variable
+grades = [85, 92, 78, 96, 88]
+
+print(f"Name: {name}, Age: {age}")
+print(f"Height: {height} feet")
+print(f"Is student: {is_student}")
+print(f"Grades: {grades}")
+\end{lstlisting}
+\end{codebox}
+
+\subsection{Control Structures}
+
+Control structures determine the flow of program execution. The main types are:
+
+\subsubsection{Conditional Statements}
+
+\begin{codebox}{}
+\begin{lstlisting}[style=python]
+def check_grade(score):
+    if score >= 90:
+        grade = "A"
+    elif score >= 80:
+        grade = "B"
+    elif score >= 70:
+        grade = "C"
+    elif score >= 60:
+        grade = "D"
+    else:
+        grade = "F"
+    
+    return grade
+
+# Example usage
+student_score = 85
+result = check_grade(student_score)
+print(f"Score: {student_score}, Grade: {result}")
+\end{lstlisting}
+\end{codebox}
+
+\subsubsection{Loops}
+
+\begin{codebox}{}
+\begin{lstlisting}[style=python]
+# For loop to calculate factorial
+def factorial(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+# Calculate factorial of 5
+number = 5
+fact = factorial(number)
+print(f"Factorial of {number} is {fact}")
+
+# While loop example
+def countdown(start):
+    while start > 0:
+        print(f"Countdown: {start}")
+        start -= 1
+    print("Blast off!")
+
+countdown(5)
+\end{lstlisting}
+\end{codebox}
+
+\section{Programming Flowcharts}
+
+Flowcharts are visual representations of algorithms and processes. They help programmers plan and understand program logic before writing code.
+
+\subsection{Basic Flowchart Symbols}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+% Start/Stop symbol
+\node (start) [startstop] {Start/Stop};
+
+% Process symbol
+\node (process) [process, below of=start] {Process};
+
+% Decision symbol
+\node (decision) [decision, below of=process, yshift=-0.5cm] {Decision?};
+
+\node (out) [io, below of=decision] {Output};
+
+% Labels
+\node [right of=start, xshift=2cm] {\textbf{Oval}: Start/End};
+\node [right of=process, xshift=2cm] {\textbf{Rectangle}: Process/Action};
+\node [right of=decision, xshift=2cm] {\textbf{Diamond}: Decision};
+
+\end{tikzpicture}
+\caption{Basic Flowchart Symbols}
+\end{figure}
+
+\subsection{Grade Calculator Flowchart}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+\node (start) [startstop] {Start};
+\node (input) [process, below of=start] {Input Score};
+\node (check90) [decision, below of=input, yshift=-2cm] {Score >= 90?};
+\node (gradeA) [process, right of=check90, xshift=2cm] {Grade = "A"};
+\node (check80) [decision, below of=check90, yshift=-2cm] {Score >= 80?};
+\node (gradeB) [process, right of=check80, xshift=2cm] {Grade = "B"};
+\node (check70) [decision, below of=check80, yshift=-2cm] {Score >= 70?};
+\node (gradeC) [process, right of=check70, xshift=2cm] {Grade = "C"};
+\node (check60) [decision, below of=check70, yshift=-2cm] {Score >= 60?};
+\node (gradeD) [process, right of=check60, xshift=2cm] {Grade = "D"};
+\node (gradeF) [process, below of=check60, yshift=-2cm] {Grade = "F"};
+\node (output) [process, below of=gradeF] {Display Grade};
+\node (stop) [startstop, below of=output] {Stop};
+
+\draw [arrow] (start) -- (input);
+\draw [arrow] (input) -- (check90);
+\draw [arrow] (check90) -- node[anchor=south] {Yes} (gradeA);
+\draw [arrow] (check90) -- node[anchor=east] {No} (check80);
+\draw [arrow] (check80) -- node[anchor=south] {Yes} (gradeB);
+\draw [arrow] (check80) -- node[anchor=east] {No} (check70);
+\draw [arrow] (check70) -- node[anchor=south] {Yes} (gradeC);
+\draw [arrow] (check70) -- node[anchor=east] {No} (check60);
+\draw [arrow] (check60) -- node[anchor=south] {Yes} (gradeD);
+\draw [arrow] (check60) -- node[anchor=east] {No} (gradeF);
+
+% Connect all grades to output
+\draw [arrow] (gradeA) |- (output);
+\draw [arrow] (gradeB) |- (output);
+\draw [arrow] (gradeC) |- (output);
+\draw [arrow] (gradeD) |- (output);
+\draw [arrow] (gradeF) -- (output);
+\draw [arrow] (output) -- (stop);
+
+\end{tikzpicture}
+\caption{Grade Calculator Algorithm Flowchart}
+\end{figure}
+
+\section{Functions and Modular Programming}
+
+Functions are reusable blocks of code that perform specific tasks. They help organize code and avoid repetition.
+
+\subsection{Function Definition and Usage}
+
+\begin{codebox}{}
+\begin{lstlisting}[style=python]
+def calculate_area_rectangle(length, width):
+    """
+    Calculate the area of a rectangle
+    
+    Args:
+        length (float): Length of the rectangle
+        width (float): Width of the rectangle
+    
+    Returns:
+        float: Area of the rectangle
+    """
+    area = length * width
+    return area
+
+def calculate_area_circle(radius):
+    """
+    Calculate the area of a circle
+    
+    Args:
+        radius (float): Radius of the circle
+    
+    Returns:
+        float: Area of the circle
+    """
+    import math
+    area = math.pi * radius ** 2
+    return area
+
+# Example usage
+rect_area = calculate_area_rectangle(10, 5)
+circle_area = calculate_area_circle(3)
+
+print(f"Rectangle area (10x5): {rect_area}")
+print(f"Circle area (radius=3): {circle_area:.2f}")
+\end{lstlisting}
+\end{codebox}
+
+\subsection{Function Call Flowchart}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+\node (start) [startstop] {Start};
+\node (input) [process, below of=start] {Input: length, width};
+\node (call) [process, below of=input] {Call calculate\_area\_rectangle()};
+\node (calc) [process, below of=call] {area = length × width};
+\node (return) [process, below of=calc] {Return area};
+\node (output) [process, below of=return] {Display result};
+\node (stop) [startstop, below of=output] {Stop};
+
+\draw [arrow] (start) -- (input);
+\draw [arrow] (input) -- (call);
+\draw [arrow] (call) -- (calc);
+\draw [arrow] (calc) -- (return);
+\draw [arrow] (return) -- (output);
+\draw [arrow] (output) -- (stop);
+
+\end{tikzpicture}
+\caption{Function Call Process Flowchart}
+\end{figure}
+
+\section{Object-Oriented Programming}
+
+Object-Oriented Programming (OOP) is a programming paradigm that uses objects and classes to structure code.
+
+\subsection{Classes and Objects}
+
+\begin{codebox}{}
+\begin{lstlisting}[style=python]
+class Student:
+    def __init__(self, name, student_id, major):
+        self.name = name
+        self.student_id = student_id
+        self.major = major
+        self.grades = []
+    
+    def add_grade(self, subject, grade):
+        self.grades.append({"subject": subject, "grade": grade})
+    
+    def calculate_gpa(self):
+        if not self.grades:
+            return 0.0
+        
+        total_points = sum(grade["grade"] for grade in self.grades)
+        return total_points / len(self.grades)
+    
+    def display_info(self):
+        print(f"Name: {self.name}")
+        print(f"Student ID: {self.student_id}")
+        print(f"Major: {self.major}")
+        print(f"GPA: {self.calculate_gpa():.2f}")
+
+# Create student objects
+student1 = Student("Alice Johnson", "S001", "Computer Science")
+student2 = Student("Bob Smith", "S002", "Mathematics")
+
+# Add grades
+student1.add_grade("Programming", 95)
+student1.add_grade("Calculus", 88)
+student1.add_grade("Physics", 92)
+
+student2.add_grade("Algebra", 90)
+student2.add_grade("Statistics", 85)
+
+# Display information
+print("Student 1:")
+student1.display_info()
+print("\nStudent 2:")
+student2.display_info()
+\end{lstlisting}
+\end{codebox}
+
+\section{Data Structures in Python}
+
+Python provides several built-in data structures that are essential for programming.
+
+\subsection{Lists and List Operations}
+
+\begin{codebox}{}
+\begin{lstlisting}[style=python]
+# Creating and manipulating lists
+numbers = [1, 2, 3, 4, 5]
+fruits = ["apple", "banana", "orange", "grape"]
+
+# List operations
+numbers.append(6)          # Add element to end
+numbers.insert(0, 0)       # Insert at specific position
+numbers.remove(3)          # Remove specific value
+popped = numbers.pop()     # Remove and return last element
+
+# List comprehension
+squares = [x**2 for x in range(1, 6)]
+even_numbers = [x for x in range(20) if x % 2 == 0]
+
+# Sorting and searching
+fruits.sort()              # Sort in place
+sorted_numbers = sorted(numbers, reverse=True)
+
+print(f"Numbers: {numbers}")
+print(f"Fruits: {fruits}")
+print(f"Squares: {squares}")
+print(f"Even numbers: {even_numbers}")
+\end{lstlisting}
+\end{codebox}
+
+\subsection{Dictionaries and Data Management}
+
+\begin{codebox}{}
+\begin{lstlisting}[style=python]
+# Creating a student management system
+student_database = {}
+
+def add_student(student_id, name, age, major):
+    student_database[student_id] = {
+        "name": name,
+        "age": age,
+        "major": major,
+        "courses": [],
+        "gpa": 0.0
+    }
+
+def enroll_course(student_id, course_name, grade):
+    if student_id in student_database:
+        student_database[student_id]["courses"].append({
+            "course": course_name,
+            "grade": grade
+        })
+        # Recalculate GPA
+        courses = student_database[student_id]["courses"]
+        total_grade = sum(course["grade"] for course in courses)
+        student_database[student_id]["gpa"] = total_grade / len(courses)
+
+# Example usage
+add_student("S001", "Alice Johnson", 20, "Computer Science")
+add_student("S002", "Bob Smith", 19, "Mathematics")
+
+enroll_course("S001", "Python Programming", 95)
+enroll_course("S001", "Data Structures", 88)
+enroll_course("S002", "Calculus", 92)
+
+# Display student information
+for student_id, info in student_database.items():
+    print(f"Student ID: {student_id}")
+    print(f"Name: {info['name']}, Major: {info['major']}")
+    print(f"GPA: {info['gpa']:.2f}")
+    print("---")
+\end{lstlisting}
+\end{codebox}
+
+\section{Algorithm Design Process}
+
+\subsection{Problem-Solving Flowchart}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2.5cm]
+
+\node (start) [startstop] {Identify Problem};
+\node (analyze) [process, below of=start] {Analyze Requirements};
+\node (design) [process, below of=analyze] {Design Algorithm};
+\node (implement) [process, below of=design] {Write Code};
+\node (test) [process, below of=implement] {Test Program};
+\node (check) [decision, below of=test, yshift=-0.5cm] {Works Correctly?};
+\node (debug) [process, right of=check, xshift=2cm] {Debug \& Fix};
+\node (deploy) [process, below of=check] {Deploy Solution};
+\node (stop) [startstop, below of=deploy] {End};
+
+\draw [arrow] (start) -- (analyze);
+\draw [arrow] (analyze) -- (design);
+\draw [arrow] (design) -- (implement);
+\draw [arrow] (implement) -- (test);
+\draw [arrow] (test) -- (check);
+\draw [arrow] (check) -- node[anchor=south] {No} (debug);
+\draw [arrow] (debug) |- (implement);
+\draw [arrow] (check) -- node[anchor=east] {Yes} (deploy);
+\draw [arrow] (deploy) -- (stop);
+
+\end{tikzpicture}
+\caption{Software Development Process}
+\end{figure}
+
+\section{Conclusion}
+
+Programming is a powerful skill that enables us to solve complex problems and create innovative solutions. The key concepts covered in this lecture include:
+
+\begin{enumerate}
+    \item \textbf{Variables and Data Types}: The building blocks of programs
+    \item \textbf{Control Structures}: Logic flow control with conditions and loops
+    \item \textbf{Functions}: Modular, reusable code blocks
+    \item \textbf{Object-Oriented Programming}: Organizing code with classes and objects
+    \item \textbf{Algorithm Design}: Systematic problem-solving approach
+\end{enumerate}
+
+Practice these concepts regularly, and remember that programming is both an art and a science that improves with experience and continuous learning.
+
+\vspace{1cm}
+\noindent\dotrule{\textwidth}
+
+\begin{center}
+\textit{End of Lecture}
+\end{center}
+
+\end{document}
