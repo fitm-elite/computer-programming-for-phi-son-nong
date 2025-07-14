@@ -260,7 +260,7 @@
     {\textlight{เพื่อส่งเสริมการมีส่วนร่วมของรุ่นพี่ในการถ่ายทอดความรู้แก้รุ่นน้อง เพื่อเสริมความเข้าใจในรายวิชา}\par}
     \vspace{2cm}
 
-    {\textlight{\textcolor{darkgray}{*ยงยุทธ ชวนขุนทด, เมธัส ทองจันทร์, ศุภกร จิรศิริวรกุล, มชัญชยา ประยูรมณี}}\par}
+    {\textlight{\textcolor{darkgray}{*ยงยุทธ ชวนขุนทด, เมธัส ทองจันทร์, ศุภกร จิรศิริวรกุล, มชัญชยา ประยูรมณีรัตน์}}\par}
     {\normalfont ประจำวันที่ 17 กรกฎาคม พ.ศ. 2568\par}
     
     \vfill
@@ -727,6 +727,8 @@ not (age < 18): True
 
 \end{noticebox}
 
+\textlight{\textbf{เครื่องหมาย ตรรกะ หรือ เปรียบเทียบ} ที่เห็นตามเนื้อหาด้านบนทั้งหมด สามารถนำมาประยุกต์ใช้งานกับ \textbf{if-elif-else (Conditional Statements)} ได้เช่นกัน ซึ่งทำให้เราสามารถตรวจสอบเงื่อนไขได้อย่างยืดหยุ่นและมีประสิทธิภาพมากขึ้น}
+
 \vspace{3cm}
 
 \subsection{การวนซ้ำด้วย \textcolor{magenta}{for}}
@@ -739,7 +741,7 @@ not (age < 18): True
 
 \begin{codebox}{(ตัวอย่าง) การวนซ้ำด้วย range(...) กับ start ใน Python}
 \begin{lstlisting}[style=python]
-for i in range(2):
+for i in range(3):
     print("Iteration", i)
 \end{lstlisting}
 \end{codebox}
@@ -794,7 +796,7 @@ Iteration with stop and step 8
 % Nodes (For iteration)
 \node (start) [startstop] {Start};
 
-\node (range) [decision, below of=start, yshift=-1.5cm] {i in range(0, 6, 2)};
+\node (range) [decision, below of=start, yshift=-1.5cm] {i in range(0, 10, 2)};
 \node (output) [io, below of=range, yshift=-2cm] {Print "Iteration with stop and step", i};
 
 \node (stop) [startstop, below of=output] {Stop};
@@ -818,13 +820,64 @@ Iteration with stop and step 8
 \end{answerbox}
 
 \begin{noticebox}{แนะนำคำสั่งใหม่!}
-\textlight{\textbf{len(obj)} คือฟังก์ชันที่ใช้ในการหาความยาวของชุดข้อมูล เช่น รายการ (List), สตริง (String), ทูเพิล (Tuple) หรือ ดิชันนารี (Dictionary) เป็นต้น \\[0.2cm] หากเป็น Dictionary จะนับจำนวนคีย์ (Keys) ที่มีอยู่ใน Dictionary นั้น ๆ}
+\textlight{\textbf{len(obj)} คือฟังก์ชันที่ใช้ในการหาความยาวของชุดข้อมูล เช่น รายการ (List), สตริง (String), ทูเพิล (Tuple) หรือ ดิชันนารี (Dictionary) เป็นต้น \\[0.2cm] ซึ่งฟังก์ชันดังกล่าวจะคืนค่ากลับมาเป็น \textcolor{magenta}{จำนวนเต็ม (Integer)} ของชุดข้อมูล นั้นๆ ที่คุณใช้ len(...) \\[0.2cm] หากเป็น Dictionary จะนับจำนวนคีย์ (Keys) ที่มีอยู่ใน Dictionary นั้น ๆ}
 \end{noticebox}
+
+\begin{codebox}{(ตัวอย่าง) การใช้ฟังก์ชัน len(...) ใน Python}
+\begin{lstlisting}[style=python]
+names = ["Alice", "Bob", "Charlie"]
+print(len(names))
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+3
+\end{verbatim}
+\end{resultbox}
+
+\vspace{0.5cm}
+
+\textlight{\textbf{Index} หรือ ดัชนี เป็นตัวเลขที่ใช้ระบุตำแหน่งของสมาชิกในชุดข้อมูล เช่น รายการ (List) ใน Python โดยเริ่มนับจาก 0 ดังนั้นสมาชิกแรกจะมีดัชนีเป็น 0, สมาชิกที่สองจะมีดัชนีเป็น 1 และต่อไปเรื่อย ๆ}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=3cm]
+
+% Array elements
+\node (elem0) [draw, rectangle, minimum width=2.5cm, minimum height=1cm, fill=cyan!30] {Alice};
+\node (elem1) [draw, rectangle, minimum width=2.5cm, minimum height=1cm, fill=cyan!30, right of=elem0] {Bob};
+\node (elem2) [draw, rectangle, minimum width=2.5cm, minimum height=1cm, fill=cyan!30, right of=elem1] {Charlie};
+
+% Index labels above
+\node (idx0) [above of=elem0, yshift=-0.3cm] {\textbf{Index 0}};
+\node (idx1) [above of=elem1, yshift=-0.3cm] {\textbf{Index 1}};
+\node (idx2) [above of=elem2, yshift=-0.3cm] {\textbf{Index 2}};
+
+% Array name and brackets
+\node (arrayname) [left of=elem0, xshift=-0.5cm] {\textbf{names =}};
+\node (leftbracket) [left of=elem0, xshift=1cm] {\textbf{[}};
+\node (rightbracket) [right of=elem2, xshift=-1cm] {\textbf{]}};
+
+% Length indicator
+\node (lengthinfo) [below of=elem1, yshift=1cm] {\textcolor{magenta}{\textbf{len(names) = 3}}};
+
+% Arrows pointing to indices
+\draw [->] (idx0) -- (elem0.north);
+\draw [->] (idx1) -- (elem1.north);
+\draw [->] (idx2) -- (elem2.north);
+
+\end{tikzpicture}
+\caption{การแสดงดัชนี (Index) ของรายการ (List) ใน Python}
+\end{figure}
+
+\begin{answerbox}{ไขข้อสงสัย!}
+\textlight{\textbf{ดัชนี (Index)} ในรายการ (List) เริ่มนับจาก 0 เสมอ ดังนั้นรายการที่มี 3 สมาชิก จะมีดัชนีเป็น 0, 1, และ 2 ตามลำดับ \\[0.3cm] การใช้ \textbf{names[0]} จะได้ค่า "Alice", \textbf{names[1]} จะได้ค่า "Bob", และ \textbf{names[2]} จะได้ค่า "Charlie" \\[0.3cm] ฟังก์ชัน \textbf{len(names)} จะคืนค่าจำนวนสมาชิกทั้งหมดในรายการ ซึ่งในกรณีนี้คือ 3}
+\end{answerbox}
 
 \begin{codebox}{(ตัวอย่าง) การวนซ้ำด้วย range(...) กับ len(...) ใน Python}
 \begin{lstlisting}[style=python]
 names = ["Alice", "Bob", "Charlie"]
-
 for i in range(len(names)):
     print(names[i])
 \end{lstlisting}
@@ -868,7 +921,7 @@ Charlie
 \caption{ตัวอย่างโฟลวชาร์ตการวนซ้ำด้วย for กับ range(...) และ len(...)}
 \end{figure}
 
-\textlight{หากต้องการวนซ้ำผ่านรายการ (List) หรือทูเพิล (Tuple) โดยตรง สามารถใช้คำสั่ง \textcolor{magenta}{for} ได้โดยไม่ต้องใช้ \textcolor{gray}{range}}
+\textlight{หากต้องการวนซ้ำผ่าน ตัวแปร ลิสต์ (List) หรือทูเพิล (Tuple) โดยตรง สามารถใช้คำสั่ง \textcolor{magenta}{for} ได้โดยไม่ต้องใช้ \textcolor{gray}{range} เพียงแค่ใช้ Logical Operator อย่าง \textbf{\textcolor{magenta}{in ...}} เพื่อวนซ้ำผ่านสมาชิกของลิสต์หรือทูเพิลนั้น ๆ}
 
 \begin{codebox}{(ตัวอย่าง) การวนซ้ำด้วย for ใน Python}
 \begin{lstlisting}[style=python]
@@ -918,6 +971,57 @@ Charlie
 \end{tikzpicture}
 \caption{ตัวอย่างโฟลวชาร์ตการวนซ้ำด้วย for กับ ลิสต์ ตรงๆ}
 \end{figure}
+
+\subsubsection{การประยุกต์ใช้ร่วมกับ Conditional Statements}
+
+\textlight{การใช้คำสั่ง \textbf{\textcolor{magenta}{for}} ร่วมกับ \textbf{\textcolor{magenta}{if}} ช่วยให้สามารถกรองข้อมูลหรือทำงานกับข้อมูลที่ตรงตามเงื่อนไขได้ เช่น การหาค่าที่ตรงตามเงื่อนไขในลิสต์ ซึ่งมีประโยชน์มาก ในการจัดการชุดข้อมูลที่มีจำนวนมาก \textbf{(ตัวอย่างด้านล่าง)}}
+
+\begin{codebox}{(ตัวอย่าง) การวนซ้ำพร้อมประยุกต์ใช้เงื่อนไข ใน Python}
+\begin{lstlisting}[style=python]
+aggregated = 0
+numbers = [39, 89, 72, 27, 15]
+
+for number in numbers:
+    if number > 50:
+        print("That's a big number:", number)
+
+    aggregated += number
+
+print("Total sum:", aggregated)
+\end{lstlisting}
+\end{codebox}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+% Nodes (For iteration)
+\node (start) [startstop] {Start};
+
+\node (aggregated) [process, below of=start] {aggregated = 0};
+\node (numbers) [process, below of=aggregated] {numbers = [39, 89, 72, 27, 15]};
+
+\node (fornumbers) [decision, below of=numbers,  yshift=-1.5cm] {number in numbers};
+\node (ifnumber) [decision, below of=fornumbers, yshift=-1.5cm] {number > 50};
+
+\node (output) [io, below of=fornumbers, yshift=-2cm] {Print name};
+
+% Arrows (For itration)
+
+\draw [arrow] (start) -- (aggregated);
+
+\draw [arrow] (aggregated) -- (numbers);
+
+% \draw [arrow] (fornumbers) -- node[anchor=west, xshift=-1.1cm, yshift=0.7cm] {True} (output);
+
+% \draw [arrow] (output.west) |- (range.west);
+
+% \draw [arrow] (range.east) -- ++(1cm,0) |- node[anchor=east, xshift=1.3cm, yshift=3.5cm] {False} (stop.east);
+
+\end{tikzpicture}
+\caption{ตัวอย่างโฟลวชาร์ตการวนซ้ำด้วย for กับ ลิสต์ ตรงๆ}
+\end{figure}
+
 
 \section{Basic Programming Concepts}
 
