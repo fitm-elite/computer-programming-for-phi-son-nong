@@ -403,7 +403,7 @@ print(x, y, name, is_active, scores, coordinates, person)
 \subsection{การใช้คำสั่ง if เบื้องต้น}
 
 \hspace{1cm}\textlight{คำสั่ง if ใช้เพื่อตรวจสอบเงื่อนไข ถ้าเงื่อนไขเป็นจริง (True) จะทำการดำเนินการตามที่กำหนดไว้ในบล็อกของ if ดังกล่าว}\\
-\textlight{\textbf{สิ่งที่ต้องการ: ฉันต้องการให้แสดงข้อความ `Hello` หากตัวแปร `name` มีค่าเป็น `KMUTNB`}}
+\textbf{สิ่งที่ต้องการ: ฉันต้องการให้แสดงข้อความ `Hello` หากตัวแปร `name` มีค่าเป็น `KMUTNB`}
 
 \begin{codebox}{(ตัวอย่าง) การใช้ if ใน Python}
 \begin{lstlisting}[style=python]
@@ -445,7 +445,7 @@ if name == "KMUTNB":
 
 \subsection{การใช้คำสั่ง if-else เบื้องต้น}
 \hspace{1cm}\textlight{คำสั่ง if-else ใช้เพื่อตรวจสอบเงื่อนไข ถ้าเงื่อนไขเป็นจริง (True) จะทำการดำเนินการตามที่กำหนดไว้ในบล็อกของ if แต่ถ้าเงื่อนไขเป็นเท็จ (False) จะทำการดำเนินการตามที่กำหนดไว้ในบล็อกของ else}\\[0.5cm]
-\textlight{\textbf{สิ่งที่ต้องการ: ฉันต้องการให้แสดงข้อความ `Hello` หากตัวแปร `name` มีค่าเป็น `KMUTNB` และแสดงข้อความ `Goodbye` หากไม่ตรงกับเงื่อนไข ใดๆ}}
+\textbf{สิ่งที่ต้องการ: ฉันต้องการให้แสดงข้อความ `Hello` หากตัวแปร `name` มีค่าเป็น `KMUTNB` และแสดงข้อความ `Goodbye` หากไม่ตรงกับเงื่อนไข ใดๆ}
 
 \begin{codebox}{(ตัวอย่าง) การใช้ if-else ใน Python}
 \begin{lstlisting}[style=python]
@@ -487,7 +487,7 @@ else:
 
 \subsection{การใช้คำสั่ง if-elif-else เบื้องต้น}
 \hspace{1cm}\textlight{คำสั่ง if-elif-else ใช้เพื่อตรวจสอบหลายเงื่อนไข ถ้าเงื่อนไขแรกเป็นจริง (True) จะทำการดำเนินการตามที่กำหนดไว้ในบล็อกของ if แต่ถ้าเงื่อนไขแรกเป็นเท็จ (False) จะตรวจสอบเงื่อนไขถัดไป (elif) และถ้าไม่มีเงื่อนไขใดเป็นจริง จะทำการดำเนินการตามที่กำหนดไว้ในบล็อกของ else}\\[0.5cm]
-\textlight{\textbf{สิ่งที่ต้องการ: ฉันต้องการให้แสดงข้อความ `Hello` หากตัวแปร `name` มีค่าเป็น `KMUTNB` , แสดงข้อความ `Goodbye` หากตัวแปร `name` มีค่าเป็น `KMITL`, และแสดงข้อความ `Unknown` หากไม่ใช่ทั้งสองกรณี}}
+\textbf{สิ่งที่ต้องการ: ฉันต้องการให้แสดงข้อความ `Hello` หากตัวแปร `name` มีค่าเป็น `KMUTNB` , แสดงข้อความ `Goodbye` หากตัวแปร `name` มีค่าเป็น `KMITL`, และแสดงข้อความ `Unknown` หากไม่ใช่ทั้งสองกรณี}
 
 \begin{codebox}{(ตัวอย่าง) การใช้ if-elif-else ใน Python}
 \begin{lstlisting}[style=python]
@@ -907,7 +907,7 @@ Charlie
 names = ["Alice", "Bob", "Charlie"]
 print(names[0:2])  # Slicing from index 0 to 1
 print(names[1:])   # Slicing from index 1 to the end
-print(names[:2])   # Slicing from the start to index 1
+print(names[:3])   # Slicing from the start and stop at index 3 (Take only 0, 1, 2)
 print(names[::2])  # Slicing with step 2
 \end{lstlisting}
 \end{codebox}
@@ -916,7 +916,7 @@ print(names[::2])  # Slicing with step 2
 \begin{verbatim}
 ['Alice', 'Bob']
 ['Bob', 'Charlie']
-['Alice', 'Bob']
+['Alice', 'Bob', 'Charlie']
 ['Alice', 'Charlie']
 \end{verbatim}
 \end{resultbox}
@@ -1110,6 +1110,96 @@ Total sum: 241
 
 \vspace{4cm}
 
-\subsection{การวนซ้ำด้วย \textcolor{magenta}{while}}
+\subsubsection{การวนซ้ำซ้อน (Nested Loops)}
+
+\hspace{1cm}\textlight{การวนซ้ำซ้อน (Nested Loops) คือการใช้คำสั่งวนซ้ำภายในคำสั่งวนซ้ำอีกครั้ง ซึ่งช่วยให้สามารถทำงานกับชุดข้อมูลที่มีโครงสร้างซับซ้อนได้ เช่น การทำงานกับตารางหรือเมทริกซ์ที่มีหลายมิติ หรือ การเรียงตัวเลขจากเล็กไปใหญ่ในลิสต์ เป็นต้น ฯลฯ}
+
+\begin{noticebox}{แนะนำการใช้งาน Placeholder!}
+
+\textlight{การใช้ Placeholder ใน Python ช่วยให้สามารถจัดรูปแบบข้อความได้อย่างยืดหยุ่น โดยใช้สัญลักษณ์ \textbf{\%} เพื่อแทนที่ค่าตัวแปรในสตริง เช่น}
+
+\begin{codebox}{}
+\begin{lstlisting}[style=python]
+print("%s x %s = %s" % (2, 2, 4))
+\end{lstlisting}
+\end{codebox}
+
+\textlight{\%s คือ Placeholder ที่ใช้แทนค่าตัวแปรในสตริง ซึ่งจะถูกแทนที่ด้วยค่าที่ระบุใน Tuple หลังจาก \% เช่น \\ ในตัวอย่างนี้ \textbf{2 x 2 = 4} จะถูกพิมพ์ออกมา (\%s อันแรกแทนที่ด้วย 2, อันที่สองแทนที่ด้วย 2, และอันสุดท้ายแทนที่ด้วย 4) \\[0.5cm] นอกจากนี้ยังสามารถใช้ Placeholder อื่น ๆ เช่น \%d สำหรับจำนวนเต็ม (Integer), \%f สำหรับจำนวนทศนิยม (Float) เป็นต้น ฯลฯ}
+
+\end{noticebox}
+
+\begin{codebox}{(ตัวอย่าง) การวนซ้ำซ้อนเพื่อแสดงตารางสูตรคูณ 1 ถึง 12 ใน Python}
+\begin{lstlisting}[style=python]
+for i in range(1, 13):
+    for j in range(1, 13):
+        print("%s x %s = %s" % (i, j, i * j))
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+1 x 1 = 1
+1 x 2 = 2
+1 x 3 = 3
+1 x 4 = 4
+1 x 5 = 5
+1 x 6 = 6
+1 x 7 = 7
+1 x 8 = 8
+1 x 9 = 9
+1 x 10 = 10
+1 x 11 = 11
+1 x 12 = 12
+...
+12 x 12 = 144
+\end{verbatim}
+\end{resultbox}
+
+\vspace{4cm}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+% Nodes (For iteration)
+\node (start) [startstop] {Start};
+
+\node (irange) [decision, below of=start, yshift=-1.5cm] {i in range(1, 13)};
+\node (jrange) [decision, below of=irange, yshift=-2.5cm] {j in range(1, 13)};
+
+\node (output) [io, below of=jrange, yshift=-1.2cm] {Print "\%s x \%s = \%s" \% (i, j, i * j)};
+
+\node (stop) [startstop, below of=output] {Stop};
+
+% Arrows (For itration)
+
+\draw [arrow] (start) -- (irange);
+
+\draw [arrow] (irange) -- node[anchor=west, xshift=-1.2cm, yshift=0.4cm] {True} (jrange);
+
+\draw [arrow] (jrange) -- node[anchor=west, xshift=-1.2cm, yshift=0.4cm] {True} (output);
+
+\draw [arrow] (jrange.west) -- ++(-2cm,0) |- node[anchor=east, xshift=2cm, yshift=-4cm] {False} (irange.west);
+
+\draw [arrow] (output.west) -- ++(-1cm,0) |- (irange.west);
+
+\draw [arrow] (irange.east) -- ++(4cm,0) |- node[anchor=east, xshift=-3cm, yshift=10.2cm] {False} (stop.east);
+
+\end{tikzpicture}
+\caption{ตัวอย่างโฟลวชาร์ตการวนซ้ำด้วย for และเงื่อนไข if ใน Python}
+\end{figure}
+
+\vspace{10cm}
+
+\subsubsection{แบบฝึกหัดการใช้การวนซ้ำ}
+\textlight{แบบฝึกหัดเพื่อฝึกการใช้คำสั่งวนซ้ำในการแก้ปัญหาจริง พร้อมทำ \textcolor{magenta}{Flowchart} และ\textcolor{magenta}{โค้ด Python} ตามโจทย์ที่กำหนด}
+
+\begin{exercisebox}{โจทย์ที่ 1: การคัดกรองเลขที่ไม่ซ้ำกัน}
+\textlight{จงเขียนโปรแกรมที่วนซ้ำ \textbf{ชุดข้อมูลตัวเลข (List of Numbers)} ที่มีการซ้ำกัน เช่น \textbf{[1, 2, 3, 4, 5, 1, 2, 3]} และสร้างชุดข้อมูลใหม่ที่มีตัวเลขที่ไม่ซ้ำกัน เช่น \textbf{[1, 2, 3, 4, 5]} โดยใช้คำสั่งวนซ้ำ \textbf{\textcolor{magenta}{for}} และเงื่อนไข \textbf{\textcolor{magenta}{if}} เพื่อกรองข้อมูล}
+\end{exercisebox}
+
+\begin{exercisebox}{โจทย์ที่ 2: หาตำแหน่งของตัวเลข 2 ตัวที่เป็นรากของผลรวม}
+\textlight{จงเขียนโปรแกรมที่วนซ้ำ \textbf{ชุดข้อมูลตัวเลข (List of Numbers)} และ หาตำแหน่ง (Index) ของตัวเลข 2 ตัวแรก ที่มีผลรวมเท่ากับ 10 เช่น \textbf{[1, 2, 3, 7, 8]} จะได้ตำแหน่งของตัวเลข 2 ตัวที่เป็นรากของผลรวมคือ (3, 7) เป็นต้น โดยใช้คำสั่งวนซ้ำ \textbf{\textcolor{magenta}{for}} และเงื่อนไข \textbf{\textcolor{magenta}{if}}}
+\end{exercisebox}
 
 \end{document}
