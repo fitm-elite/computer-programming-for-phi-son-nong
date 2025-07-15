@@ -414,7 +414,9 @@ if name == "KMUTNB":
 \end{lstlisting}
 \end{codebox}
 
-\vspace{0.5cm}
+\begin{answerbox}{ไขข้อสงสัย!}
+\textlight{\textbf{==} หมายความว่า เท่ากับ (Equal) ใช้เพื่อตรวจสอบว่าค่าของตัวแปร `name` เท่ากับ "KMUTNB" หรือไม่}
+\end{answerbox}
 
 \begin{figure}[H]
 \centering
@@ -912,9 +914,10 @@ print(names[::2])  # Slicing with step 2
 
 \begin{resultbox}{ผลลัพธ์}
 \begin{verbatim}
-Alice
-Bob
-Charlie
+['Alice', 'Bob']
+['Bob', 'Charlie']
+['Alice', 'Bob']
+['Alice', 'Charlie']
 \end{verbatim}
 \end{resultbox}
 
@@ -1023,6 +1026,22 @@ Charlie
 
 \textlight{การใช้คำสั่ง \textbf{\textcolor{magenta}{for}} ร่วมกับ \textbf{\textcolor{magenta}{if}} ช่วยให้สามารถกรองข้อมูลหรือทำงานกับข้อมูลที่ตรงตามเงื่อนไขได้ เช่น การหาค่าที่ตรงตามเงื่อนไขในลิสต์ ซึ่งมีประโยชน์มาก ในการจัดการชุดข้อมูลที่มีจำนวนมาก \textbf{(ตัวอย่างด้านล่าง)}}
 
+\begin{noticebox}{แนะนำการประยุกต์ใช้เครื่องหมายดำเนินการ!}
+
+\textlight{หากมีตัวแปร \textbf{X = 10} เมื่อเราใช้ \textbf{X += 5} จะเท่ากับ \textbf{X = X + 5} ซึ่งจะทำให้ \textbf{X} มีค่าเป็น \textbf{15} นั่นหมายความว่าเครื่องหมาย \textbf{+=} เป็นการย่อรูปของการบวกและกำหนดค่าใหม่ให้กับตัวแปร ซึ่งจะนำค่าเดิมของตัวแปรมาบวกกับค่าที่ระบุ และเก็บผลลัพธ์ไว้ในตัวแปรนั้น \textbf{(หากตัวแปรนั้นมีค่าเดิมอยู่แล้ว)}}\\[0.5cm]
+\textlight{นอกจากการใช้ \textbf{+=} ยังมีเครื่องหมายดำเนินการอื่น ๆ ที่สามารถใช้ได้เช่นกัน เช่น}
+
+\begin{itemize}
+    \item \textbf{-=} : \textcolor{darkgray}{การลบ (Subtraction)}
+    \item \textbf{*=} : \textcolor{darkgray}{การคูณ (Multiplication)}
+    \item \textbf{/=} : \textcolor{darkgray}{การหาร (Division) - ผลลัพธ์เป็นทศนิยม}
+    \item \textbf{//=} : \textcolor{darkgray}{การหารปัดเศษลง (Floor Division) - ผลลัพธ์เป็นจำนวนเต็ม}
+    \item \textbf{\%=} : \textcolor{darkgray}{การหาเศษเหลือจากการหาร (Modulus)}
+    \item \textbf{**=} : \textcolor{darkgray}{การยกกำลัง (Exponentiation)}
+\end{itemize}
+
+\end{noticebox}
+
 \begin{codebox}{(ตัวอย่าง) การวนซ้ำพร้อมประยุกต์ใช้เงื่อนไข ใน Python}
 \begin{lstlisting}[style=python]
 aggregated = 0
@@ -1038,6 +1057,14 @@ print("Total sum:", aggregated)
 \end{lstlisting}
 \end{codebox}
 
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+That 's a big number: 89
+That 's a big number: 72
+Total sum: 241
+\end{verbatim}
+\end{resultbox}
+
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[node distance=2cm]
@@ -1048,10 +1075,14 @@ print("Total sum:", aggregated)
 \node (aggregated) [process, below of=start] {aggregated = 0};
 \node (numbers) [process, below of=aggregated] {numbers = [39, 89, 72, 27, 15]};
 
-\node (fornumbers) [decision, below of=numbers,  yshift=-1.5cm] {number in numbers};
-\node (ifnumber) [decision, below of=fornumbers, yshift=-1.5cm] {number > 50};
+\node (fornumbers) [decision, below of=numbers, yshift=-1.5cm] {number in numbers};
+\node (ifnumber) [decision, below of=fornumbers, yshift=-2.5cm] {number > 50};
 
-\node (output) [io, below of=fornumbers, yshift=-2cm] {Print name};
+\node (output) [io, below of=ifnumber, yshift=-1cm] {Print "That's a big number:", number};
+
+\node (addnumber) [process, below of=output] {aggregated += number};
+
+\node (stop) [startstop, below of=addnumber] {Stop};
 
 % Arrows (For itration)
 
@@ -1059,14 +1090,26 @@ print("Total sum:", aggregated)
 
 \draw [arrow] (aggregated) -- (numbers);
 
-% \draw [arrow] (fornumbers) -- node[anchor=west, xshift=-1.1cm, yshift=0.7cm] {True} (output);
+\draw [arrow] (numbers) -- (fornumbers);
 
-% \draw [arrow] (output.west) |- (range.west);
+\draw [arrow] (fornumbers) -- node[anchor=west, xshift=-1.2cm, yshift=0.4cm] {True} (ifnumber);
 
-% \draw [arrow] (range.east) -- ++(1cm,0) |- node[anchor=east, xshift=1.3cm, yshift=3.5cm] {False} (stop.east);
+\draw [arrow] (ifnumber) -- node[anchor=west, xshift=-1.2cm, yshift=0.4cm] {True} (output);
+
+\draw [arrow] (ifnumber.east) -- ++(4.5cm,0) |- node[anchor=east, xshift=-3.5cm, yshift=5.5cm] {False} (addnumber.east);
+
+\draw [arrow] (output) -- (addnumber);
+
+\draw [arrow] (addnumber.west) -- ++(-4cm,0) |- (fornumbers.west);
+
+\draw [arrow] (fornumbers.east) -- ++(5.5cm,0) |- node[anchor=east, xshift=-4.5cm, yshift=12cm] {False} (stop.east);
 
 \end{tikzpicture}
-\caption{ตัวอย่างโฟลวชาร์ตการวนซ้ำด้วย for กับ ลิสต์ ตรงๆ}
+\caption{ตัวอย่างโฟลวชาร์ตการวนซ้ำด้วย for และเงื่อนไข if ใน Python}
 \end{figure}
+
+\vspace{4cm}
+
+\subsection{การวนซ้ำด้วย \textcolor{magenta}{while}}
 
 \end{document}
