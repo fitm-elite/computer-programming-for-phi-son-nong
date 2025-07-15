@@ -875,7 +875,52 @@ print(len(names))
 \textlight{\textbf{ดัชนี (Index)} ในรายการ (List) เริ่มนับจาก 0 เสมอ ดังนั้นรายการที่มี 3 สมาชิก จะมีดัชนีเป็น 0, 1, และ 2 ตามลำดับ \\[0.3cm] การใช้ \textbf{names[0]} จะได้ค่า "Alice", \textbf{names[1]} จะได้ค่า "Bob", และ \textbf{names[2]} จะได้ค่า "Charlie" \\[0.3cm] ฟังก์ชัน \textbf{len(names)} จะคืนค่าจำนวนสมาชิกทั้งหมดในรายการ ซึ่งในกรณีนี้คือ 3}
 \end{answerbox}
 
+\vspace{3cm}
+
+\textlight{การเข้าถึงสมาชิกในรายการ (List) หรือทูเพิล (Tuple) สามารถทำได้โดยใช้ดัชนี (Index) ซึ่งเป็นตัวเลขที่ระบุตำแหน่งของสมาชิกในชุดข้อมูลนั้น ๆ อย่างเช่น \textbf{names[0]} จะเข้าถึงสมาชิกแรกของรายการ names ซึ่งคือ \textbf{"Alice"} หรือการเข้าถึงแบบ Negative Index เช่น \textbf{names[-1]} จะเข้าถึงสมาชิกสุดท้ายของรายการ names ซึ่งคือ \textbf{"Charlie"}}
+
+\begin{codebox}{(ตัวอย่าง) การเข้าถึงสมาชิกในรายการ (List) ด้วยดัชนี (Index) ใน Python}
+\begin{lstlisting}[style=python]
+names = ["Alice", "Bob", "Charlie"]
+print(names[0])
+print(names[-1])
+print(names[2])
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Alice
+Charlie
+Charlie
+\end{verbatim}
+\end{resultbox}
+
+\vspace{0.5cm}
+
+\textlight{การเข้าถึงสมาชิกแบบ Slice (Slicing) ช่วยให้สามารถเข้าถึงสมาชิกในรายการ (List) หรือทูเพิล (Tuple) ได้หลายตัวพร้อมกัน โดยใช้รูปแบบ \textbf{list[start:stop:step]} ซึ่งจะคืนค่าชุดข้อมูลย่อยที่เริ่มจากดัชนี start ถึง stop (ไม่รวม stop) และเพิ่มทีละ step}
+
 \begin{codebox}{(ตัวอย่าง) การวนซ้ำด้วย range(...) กับ len(...) ใน Python}
+\begin{lstlisting}[style=python]
+names = ["Alice", "Bob", "Charlie"]
+print(names[0:2])  # Slicing from index 0 to 1
+print(names[1:])   # Slicing from index 1 to the end
+print(names[:2])   # Slicing from the start to index 1
+print(names[::2])  # Slicing with step 2
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Alice
+Bob
+Charlie
+\end{verbatim}
+\end{resultbox}
+
+\vspace{4cm}
+
+\begin{codebox}{(ตัวอย่าง) การวนซ้ำด้วย for กับ range(...) และ len(...) ใน Python}
 \begin{lstlisting}[style=python]
 names = ["Alice", "Bob", "Charlie"]
 for i in range(len(names)):
@@ -920,6 +965,8 @@ Charlie
 \end{tikzpicture}
 \caption{ตัวอย่างโฟลวชาร์ตการวนซ้ำด้วย for กับ range(...) และ len(...)}
 \end{figure}
+
+\vspace{4cm}
 
 \textlight{หากต้องการวนซ้ำผ่าน ตัวแปร ลิสต์ (List) หรือทูเพิล (Tuple) โดยตรง สามารถใช้คำสั่ง \textcolor{magenta}{for} ได้โดยไม่ต้องใช้ \textcolor{gray}{range} เพียงแค่ใช้ Logical Operator อย่าง \textbf{\textcolor{magenta}{in ...}} เพื่อวนซ้ำผ่านสมาชิกของลิสต์หรือทูเพิลนั้น ๆ}
 
