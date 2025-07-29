@@ -1169,7 +1169,7 @@ for i in range(1, 13):
 
 \node (output) [io, below of=jrange, yshift=-1.2cm] {Print "\%s x \%s = \%s" \% (i, j, i * j)};
 
-\node (stop) [startstop, below of=output] {Stop};
+\node (stop) [startstop, below of=output, yshift=-0.5cm] {Stop};
 
 % Arrows (For itration)
 
@@ -1179,11 +1179,11 @@ for i in range(1, 13):
 
 \draw [arrow] (jrange) -- node[anchor=west, xshift=-1.2cm, yshift=0.4cm] {True} (output);
 
-\draw [arrow] (jrange.west) -- ++(-2cm,0) |- node[anchor=east, xshift=2cm, yshift=-4cm] {False} (irange.west);
+\draw [arrow] (jrange.east) -- ++(4cm,0) |- ++(0,-4.5cm) |- ++(-12.5cm,0) |- node[anchor=east, xshift=9.5cm, yshift=-4.1cm] {False} (irange.west);
 
-\draw [arrow] (output.west) -- ++(-1cm,0) |- (irange.west);
+\draw [arrow] (output.west) -- ++(-1cm,0) |- (jrange.west);
 
-\draw [arrow] (irange.east) -- ++(4cm,0) |- node[anchor=east, xshift=-3cm, yshift=10.2cm] {False} (stop.east);
+\draw [arrow] (irange.east) -- ++(5cm,0) |- node[anchor=east, xshift=-4cm, yshift=10.6cm] {False} (stop.east);
 
 \end{tikzpicture}
 \caption{ตัวอย่างโฟลวชาร์ตการวนซ้ำด้วย for และเงื่อนไข if ใน Python}
