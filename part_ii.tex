@@ -592,6 +592,8 @@ Sorted scores: [92, 90, 88, 85, 78]
 \textlight{พร้อมสร้าง Flowchart แสดงการทำงานของโปรแกรม}
 \end{exercisebox}
 
+\vspace{8cm}
+
 \section{ฟังก์ชัน (Functions)}
 
 \hspace{1cm}\textlight{ฟังก์ชัน (Functions) เป็นชุดคำสั่งที่ถูกจัดกลุ่มไว้ด้วยกันเพื่อทำงานเฉพาะอย่าง ฟังก์ชันช่วยให้โค้ดมีความเป็นระเบียบ สามารถนำกลับมาใช้ได้ (Reusable) และง่ายต่อการบำรุงรักษา การเขียนฟังก์ชันที่ดีจะช่วยลดการเขียนโค้ดซ้ำๆ และทำให้โปรแกรมมีประสิทธิภาพมากขึ้น}
@@ -755,53 +757,39 @@ Sum 2: 15
 \begin{codebox}{(ตัวอย่าง) ขอบเขตของตัวแปรใน Python}
 \begin{lstlisting}[style=python]
 # Global variable
-global_var = "I am global"
+count = 0
 
 def test_scope():
     # Local variable
-    local_var = "I am local"
-    print(f"Inside function - Global: {global_var}")
-    print(f"Inside function - Local: {local_var}")
+    local_var = "Hello"
+    print(f"Inside function: {count}")
+    print(f"Local variable: {local_var}")
 
 def modify_global():
-    global global_var
-    global_var = "I am modified global"
-    print(f"Modified global: {global_var}")
+    global count
+    count = 10
+    print(f"Modified global: {count}")
 
 # Call functions
 test_scope()
-print(f"Outside function - Global: {global_var}")
+print(f"Outside function: {count}")
 
 modify_global()
-print(f"After modification - Global: {global_var}")
-
-# Example of using nonlocal
-def outer_function():
-    outer_var = "I am outer"
-    
-    def inner_function():
-        nonlocal outer_var
-        outer_var = "I am modified outer"
-        print(f"Inner function: {outer_var}")
-    
-    inner_function()
-    print(f"Outer function: {outer_var}")
-
-outer_function()
+print(f"After modification: {count}")
 \end{lstlisting}
 \end{codebox}
 
 \begin{resultbox}{ผลลัพธ์}
 \begin{verbatim}
-Inside function - Global: I am global
-Inside function - Local: I am local
-Outside function - Global: I am global
-Modified global: I am modified global
-After modification - Global: I am modified global
-Inner function: I am modified outer
-Outer function: I am modified outer
+Inside function: 0
+Local variable: Hello
+Outside function: 0
+Modified global: 10
+After modification: 10
 \end{verbatim}
 \end{resultbox}
+
+\vspace{6cm}
 
 \subsection{ฟังก์ชัน Built-in ที่สำคัญ (Important Built-in Functions)}
 
@@ -1040,7 +1028,7 @@ Total sum: 15
 \caption{Flowchart ของ While Loop พื้นฐาน}
 \end{figure}
 
-\vspace{4cm}
+\vspace{8cm}
 
 \subsection{การควบคุม While Loop ด้วย break และ continue}
 
