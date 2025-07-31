@@ -1,0 +1,1361 @@
+\documentclass[12pt,a4paper]{article}
+
+% Page setup
+\usepackage[a4paper,top=1in,bottom=1in,left=0.5in,right=0.5in]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{etoolbox}
+\usepackage[nonumberlist]{glossaries}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{colortbl}
+
+% Table packages
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{multicol}
+
+% List formatting
+\usepackage{enumitem}
+
+% Dotted lines package
+\usepackage{dashrule}
+
+% Code listings package for syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,skins}
+
+% Thai language support
+\usepackage{xunicode}
+\usepackage{xltxtra}
+
+% Optimized fonts for Thai language - using Medium weight
+\setmainfont[
+    Path=./font/Sarabun/,
+    UprightFont=*-Regular,
+    BoldFont=*-Medium,
+    ItalicFont=*-Italic,
+    BoldItalicFont=*-MediumItalic,
+    Scale=0.90,
+    Ligatures=TeX,
+    WordSpace=1.2,
+    PunctuationSpace=1.1
+]{Sarabun}
+
+\newfontfamily\thaifont[
+    Path=./font/Sarabun/,
+    UprightFont=*-Regular,
+    BoldFont=*-Medium,
+    ItalicFont=*-Italic,
+    BoldItalicFont=*-MediumItalic,
+    Scale=0.90,
+    Ligatures=TeX,
+    WordSpace=1.2,
+    PunctuationSpace=1.1,
+    Script=Thai,
+    Language=Thai
+]{Sarabun}
+
+% Light weight font family optimized for Thai
+\newfontfamily\thailightfont[
+    Path=./font/Sarabun/,
+    UprightFont=*-Light,
+    BoldFont=*-Medium,
+    ItalicFont=*-LightItalic,
+    BoldItalicFont=*-MediumItalic,
+    Scale=0.90,
+    Ligatures=TeX,
+    WordSpace=1.2,
+    PunctuationSpace=1.1,
+    Script=Thai,
+    Language=Thai
+]{Sarabun}
+
+% Font commands for easy switching
+\newcommand{\textlight}[1]{{\thailightfont #1}}
+\newcommand{\thailight}{\thailightfont}
+
+% Thai typography optimization commands
+\newcommand{\optimalthai}[1]{{\thaifont #1}}
+
+% Monospace font for Thai in code blocks
+\newfontfamily\thaifonttt[
+    Path=./font/Sarabun/,
+    UprightFont=*-Regular,
+    BoldFont=*-Medium,
+    Scale=0.9,
+    Ligatures=TeX,
+    Script=Thai,
+    Language=Thai
+]{Sarabun}
+
+% Additional packages for better Thai support
+\usepackage{polyglossia}
+\setdefaultlanguage{thai}
+\setotherlanguage{english}
+
+% Thai line breaking settings - optimized
+\XeTeXlinebreaklocale "th"
+\XeTeXlinebreakskip = 0pt plus 2pt minus 1pt
+
+% Thai typography enhancements
+\frenchspacing 
+\tolerance=1000
+\emergencystretch=3em
+
+% Thai punctuation spacing
+\XeTeXinterchartokenstate = 1
+
+% Better Thai paragraph spacing
+\setlength{\parskip}{0.5\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip}
+\setlength{\parindent}{2em}
+
+% Custom section numbering with period and reduced spacing
+\renewcommand{\thesection}{\arabic{section}.}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+
+% Custom dotted rule command
+\newcommand{\dotrule}[1]{\hdashrule{#1}{0.6pt}{1pt}}
+
+% Flowchart and diagram packages
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usetikzlibrary{shapes.geometric, arrows, positioning, fit, calc}
+
+% Define flowchart styles
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=red!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{decision} = [diamond, minimum width=1.5cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill=yellow!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+% Code styling configuration
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+% Monospace font for code
+\newfontfamily\codefont{Menlo}[
+    Scale=0.85
+]
+
+% Python code style
+\lstdefinestyle{python}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\codefont\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=10pt,            
+    xleftmargin=10pt,
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    columns=fixed,
+    basewidth=0.6em,
+    language=Python
+}
+
+% Custom code box using tcolorbox
+\newtcolorbox{codebox}[2][]{
+    colback=white!5!white,
+    colframe=gray!75!black,
+    fonttitle=\bfseries,
+    title=#2,
+    top=0pt,
+    bottom=0pt,
+    boxsep=0pt,
+    toptitle=0pt,
+    bottomtitle=0pt,
+    #1
+}
+
+% Custom result box for output display
+\newtcolorbox{resultbox}[2][]{
+    colback=white!5!white,
+    colframe=green!75!black,
+    fonttitle=\bfseries,
+    title=#2,
+    top=3pt,
+    bottom=3pt,
+    left=4pt,
+    #1
+}
+
+% Custom exercise box for exercises
+\newtcolorbox{exercisebox}[2][]{
+    colback=white!5!white,
+    colframe=gray!75!black,
+    fonttitle=\bfseries,
+    title=#2,
+    #1
+}
+
+% Custom notice box for important messages
+\newtcolorbox{noticebox}[2][]{
+    colback=yellow!5!white,
+    colframe=magenta!90!black,
+    fonttitle=\bfseries,
+    title=#2,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    boxrule=2pt,
+    arc=3pt,
+    auto outer arc,
+    #1
+}
+
+% Custom notice box for important messages
+\newtcolorbox{answerbox}[2][]{
+    colback=yellow!5!white,
+    colframe=magenta!50!black,
+    fonttitle=\bfseries,
+    title=#2,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    boxrule=2pt,
+    arc=3pt,
+    auto outer arc,
+    #1
+}
+
+\begin{document}
+
+% Title Page
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries {คอมพิวเตอร์โปรแกรมมิ่ง (โครงการพี่ติวน้อง)}\par}
+    {\textlight{เพื่อส่งเสริมการมีส่วนร่วมของรุ่นพี่ในการถ่ายทอดความรู้แก้รุ่นน้อง เพื่อเสริมความเข้าใจในรายวิชา}\par}
+    \vspace{2cm}
+
+    {\textlight{\textcolor{darkgray}{*ยงยุทธ ชวนขุนทด, เมธัส ทองจันทร์, ศุภกร จิรศิริวรกุล, มชัญชยา ประยูรมณีรัตน์}}\par}
+    {\normalfont ประจำวันที่ 31 กรกฎาคม พ.ศ. 2568\par}
+    
+    \vfill
+    
+    {\thailight ภาควิชาเทคโนโลยีสารสนเทศ\par}
+    {\thailight มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ วิทยาเขตปราจีนบุรี\par}
+\end{titlepage}
+
+% Table of Contents
+\tableofcontents
+\newpage
+
+\section{รายการและเมธอดสำหรับชนิดข้อมูล (Lists and Data Type Methods)}
+
+\hspace{1cm}\textlight{รายการ (List) เป็นโครงสร้างข้อมูลพื้นฐานใน Python ที่ใช้เก็บข้อมูลหลายค่าไว้ในตัวแปรเดียว คิดเหมือนกับลิสต์รายการสิ่งของที่เราใช้ในชีวิตประจำวัน เช่น รายการซื้อของ รายชื่อเพื่อน หรือรายการคะแนนสอบ ข้อดีของ List คือสามารถเปลี่ยนแปลงข้อมูลได้หลังจากสร้างแล้ว (Mutable) และสามารถเก็บข้อมูลหลายประเภทไว้ด้วยกันได้ เช่น ตัวเลข ข้อความ และค่าความจริง การเรียนรู้การใช้งาน List และเมธอดต่างๆ จะช่วยให้นักศึกษาสามารถจัดการข้อมูลได้อย่างมีประสิทธิภาพ}
+
+\subsection{การสร้างและเข้าถึงรายการ (Creating and Accessing Lists)}
+
+\hspace{1cm}\textlight{การสร้าง List ใน Python ง่ายมาก เพียงใช้เครื่องหมายวงเล็บเหลี่ยม [ ] และคั่นข้อมูลแต่ละตัวด้วยเครื่องหมายจุลภาค การเข้าถึงข้อมูลใน List ใช้หมายเลขดัชนี (Index) ซึ่งเริ่มนับจาก 0 สำหรับตำแหน่งแรก สิ่งที่ควรจำคือ Python รองรับการนับดัชนีแบบย้อนกลับด้วย โดยใช้เลขลบ เช่น -1 สำหรับตำแหน่งสุดท้าย นอกจากนี้ยังสามารถเลือกข้อมูลหลายตำแหน่งพร้อมกันได้ด้วยเทคนิค Slicing}
+
+\begin{codebox}{(ตัวอย่าง) การสร้างและเข้าถึงรายการใน Python}
+\begin{lstlisting}[style=python]
+# Creating lists
+fruits = ["apple", "banana", "orange", "grape"]
+numbers = [1, 2, 3, 4, 5]
+mixed = ["hello", 42, 3.14, True]
+
+# Accessing list elements
+print("First fruit:", fruits[0])
+print("Last fruit:", fruits[-1])
+print("Second number:", numbers[1])
+
+# Slicing access
+print("First 3 fruits:", fruits[0:3])
+print("Last 2 fruits:", fruits[-2:])
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+First fruit: apple
+Last fruit: grape
+Second number: 2
+First 3 fruits: ['apple', 'banana', 'orange']
+Last 2 fruits: ['orange', 'grape']
+\end{verbatim}
+\end{resultbox}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2.5cm]
+
+% Array elements
+\node (elem0) [draw, rectangle, minimum width=2cm, minimum height=1cm, fill=cyan!30] {apple};
+\node (elem1) [draw, rectangle, minimum width=2cm, minimum height=1cm, fill=cyan!30, right of=elem0] {banana};
+\node (elem2) [draw, rectangle, minimum width=2cm, minimum height=1cm, fill=cyan!30, right of=elem1] {orange};
+\node (elem3) [draw, rectangle, minimum width=2cm, minimum height=1cm, fill=cyan!30, right of=elem2] {grape};
+
+% Index labels above
+\node (idx0) [above of=elem0, yshift=-0.3cm] {\textbf{[0]}};
+\node (idx1) [above of=elem1, yshift=-0.3cm] {\textbf{[1]}};
+\node (idx2) [above of=elem2, yshift=-0.3cm] {\textbf{[2]}};
+\node (idx3) [above of=elem3, yshift=-0.3cm] {\textbf{[3]}};
+
+% Negative index labels below
+\node (nidx3) [below of=elem0, yshift=0.3cm] {\textbf{[-4]}};
+\node (nidx2) [below of=elem1, yshift=0.3cm] {\textbf{[-3]}};
+\node (nidx1) [below of=elem2, yshift=0.3cm] {\textbf{[-2]}};
+\node (nidx0) [below of=elem3, yshift=0.3cm] {\textbf{[-1]}};
+
+% Array name
+\node (arrayname) [left of=elem0, xshift=-1cm] {\textbf{fruits =}};
+
+\end{tikzpicture}
+\caption{การแสดงดัชนีของรายการ (Positive และ Negative Index)}
+\end{figure}
+
+\subsection{เมธอดสำหรับการจัดการรายการ (List Methods)}
+
+\hspace{1cm}\textlight{เมธอด (Methods) คือฟังก์ชันพิเศษที่ผูกติดกับ List และช่วยให้เราจัดการข้อมูลได้สะดวกขึ้น คิดเหมือนกับปุ่มกดต่างๆ บนรีโมทคอนโทรล แต่ละปุ่มมีหน้าที่เฉพาะ เช่น เพิ่มข้อมูล ลบข้อมูล หรือจัดเรียงข้อมูล การเรียนรู้เมธอดเหล่านี้จะช่วยให้นักศึกษาเขียนโปรแกรมได้อย่างมีประสิทธิภาพและลดความซับซ้อนของโค้ด}
+
+\begin{noticebox}{เมธอดสำคัญของรายการ (List Methods)}
+
+\textlight{เมธอดที่ใช้บ่อยในการจัดการรายการ:}
+
+\begin{itemize}
+    \item \textbf{append(item)}: \textcolor{darkgray}{เพิ่มสมาชิกใหม่ที่ท้ายรายการ}
+    \item \textbf{insert(index, item)}: \textcolor{darkgray}{เพิ่มสมาชิกใหม่ที่ตำแหน่งที่กำหนด}
+    \item \textbf{remove(item)}: \textcolor{darkgray}{ลบสมาชิกที่ระบุออกจากรายการ}
+    \item \textbf{pop(index)}: \textcolor{darkgray}{ลบและคืนค่าสมาชิกที่ตำแหน่งที่กำหนด}
+    \item \textbf{index(item)}: \textcolor{darkgray}{หาตำแหน่งของสมาชิกที่ระบุ}
+    \item \textbf{count(item)}: \textcolor{darkgray}{นับจำนวนสมาชิกที่ระบุ}
+    \item \textbf{sort()}: \textcolor{darkgray}{เรียงลำดับรายการ}
+    \item \textbf{reverse()}: \textcolor{darkgray}{กลับลำดับรายการ}
+    \item \textbf{clear()}: \textcolor{darkgray}{ลบสมาชิกทั้งหมดในรายการ}
+\end{itemize}
+
+\end{noticebox}
+
+\begin{codebox}{(ตัวอย่าง) การใช้เมธอด append() และ insert() ใน Python}
+\begin{lstlisting}[style=python]
+# Create fruit list
+fruits = ["apple", "banana"]
+print("Original fruits:", fruits)
+
+# Add fruit to the end of the list
+fruits.append("orange")
+print("After append:", fruits)
+
+# Insert fruit at position 1
+fruits.insert(1, "mango")
+print("After insert:", fruits)
+
+# Add multiple fruits at once
+more_fruits = ["grape", "kiwi"]
+fruits.extend(more_fruits)
+print("After extend:", fruits)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Original fruits: ['apple', 'banana']
+After append: ['apple', 'banana', 'orange']
+After insert: ['apple', 'mango', 'banana', 'orange']
+After extend: ['apple', 'mango', 'banana', 'orange', 'grape', 'kiwi']
+\end{verbatim}
+\end{resultbox}
+
+\vspace{2cm}
+
+\begin{codebox}{(ตัวอย่าง) การใช้เมธอด remove() และ pop() ใน Python}
+\begin{lstlisting}[style=python]
+# Create number list
+numbers = [1, 2, 3, 4, 5, 3, 6]
+print("Original numbers:", numbers)
+
+# Remove number 3 (first occurrence)
+numbers.remove(3)
+print("After remove(3):", numbers)
+
+# Remove element at position 2 and store the removed value
+removed_item = numbers.pop(2)
+print("After pop(2):", numbers)
+print("Removed item:", removed_item)
+
+# Remove last element
+last_item = numbers.pop()
+print("After pop():", numbers)
+print("Last item:", last_item)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Original numbers: [1, 2, 3, 4, 5, 3, 6]
+After remove(3): [1, 2, 4, 5, 3, 6]
+After pop(2): [1, 2, 5, 3, 6]
+Removed item: 4
+After pop(): [1, 2, 5, 3]
+Last item: 6
+\end{verbatim}
+\end{resultbox}
+
+\begin{codebox}{(ตัวอย่าง) การใช้เมธอด sort() และ reverse() ใน Python}
+\begin{lstlisting}[style=python]
+# Create number list
+numbers = [64, 34, 25, 12, 22, 11, 90]
+print("Original numbers:", numbers)
+
+# Sort in ascending order
+numbers.sort()
+print("After sort():", numbers)
+
+# Sort in descending order
+numbers.sort(reverse=True)
+print("After sort(reverse=True):", numbers)
+
+# Reverse the list
+numbers.reverse()
+print("After reverse():", numbers)
+
+# Sort words
+words = ["python", "java", "c++", "javascript"]
+words.sort()
+print("Sorted words:", words)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Original numbers: [64, 34, 25, 12, 22, 11, 90]
+After sort(): [11, 12, 22, 25, 34, 64, 90]
+After sort(reverse=True): [90, 64, 34, 25, 22, 12, 11]
+After reverse(): [11, 12, 22, 25, 34, 64, 90]
+Sorted words: ['c++', 'java', 'javascript', 'python']
+\end{verbatim}
+\end{resultbox}
+
+\vspace{6cm}
+
+\subsection{เมธอดสำหรับชนิดข้อมูลอื่นๆ (Methods for Other Data Types)}
+
+\hspace{1cm}\textlight{เช่นเดียวกับ List สตริง (String) ก็มีเมธอดของตัวเองที่ช่วยจัดการข้อความได้อย่างมีประสิทธิภาพ เมธอดเหล่านี้มีประโยชน์มากในการประมวลผลข้อความ เช่น การทำความสะอาดข้อมูล การค้นหาคำ หรือการแปลงรูปแบบข้อความ ซึ่งเป็นทักษะพื้นฐานที่นักศึกษาจะใช้บ่อยในการเขียนโปรแกรม}
+
+\begin{noticebox}{เมธอดสำคัญของสตริง (String Methods)}
+
+\textlight{เมธอดที่ใช้บ่อยในการจัดการสตริง:}
+
+\begin{itemize}
+    \item \textbf{upper()}: \textcolor{darkgray}{แปลงเป็นตัวพิมพ์ใหญ่}
+    \item \textbf{lower()}: \textcolor{darkgray}{แปลงเป็นตัวพิมพ์เล็ก}
+    \item \textbf{strip()}: \textcolor{darkgray}{ลบช่องว่างหน้าและหลัง}
+    \item \textbf{split(separator)}: \textcolor{darkgray}{แยกสตริงตามตัวคั่น}
+    \item \textbf{join(list)}: \textcolor{darkgray}{รวมรายการเป็นสตริง}
+    \item \textbf{replace(old, new)}: \textcolor{darkgray}{แทนที่ข้อความ}
+    \item \textbf{find(substring)}: \textcolor{darkgray}{หาตำแหน่งของข้อความ}
+    \item \textbf{startswith(prefix)}: \textcolor{darkgray}{ตรวจสอบว่าเริ่มต้นด้วยข้อความที่ระบุ}
+    \item \textbf{endswith(suffix)}: \textcolor{darkgray}{ตรวจสอบว่าลงท้ายด้วยข้อความที่ระบุ}
+\end{itemize}
+
+\end{noticebox}
+
+\begin{codebox}{(ตัวอย่าง) การใช้เมธอดของสตริง ใน Python}
+\begin{lstlisting}[style=python]
+# Using basic string methods
+text = "  Hello Python World  "
+print("Original:", repr(text))
+print("Upper:", text.upper())
+print("Lower:", text.lower())
+print("Strip:", text.strip())
+
+# Splitting and joining strings
+sentence = "Python is awesome"
+words = sentence.split()
+print("Split:", words)
+print("Join:", "-".join(words))
+
+# Replacing and searching
+message = "I love Java programming"
+new_message = message.replace("Java", "Python")
+print("Replace:", new_message)
+print("Find Python:", new_message.find("Python"))
+print("Starts with 'I':", message.startswith("I"))
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Original: '  Hello Python World  '
+Upper:   HELLO PYTHON WORLD  
+Lower:   hello python world  
+Strip: Hello Python World
+Split: ['Python', 'is', 'awesome']
+Join: Python-is-awesome
+Replace: I love Python programming
+Find Python: 7
+Starts with 'I': True
+\end{verbatim}
+\end{resultbox}
+
+\subsection{บททดสอบ}
+
+\begin{exercisebox}{โจทย์ที่ 1: โปรแกรมจัดการรายการอาหาร}
+\textlight{จงเขียนโปรแกรมจัดการรายการอาหารโปรดง่ายๆ โดยใช้ List methods}
+
+\textlight{\textbf{ความต้องการ:}}
+\begin{itemize}
+    \item \textlight{สร้างรายการอาหารเริ่มต้น: ["pizza", "burger", "salad"]}
+    \item \textlight{เพิ่มอาหาร "pasta" ลงในรายการ}
+    \item \textlight{ลบอาหาร "salad" ออกจากรายการ}
+    \item \textlight{แสดงรายการอาหารทั้งหมดเรียงตามตัวอักษร}
+    \item \textlight{นับจำนวนอาหารทั้งหมด}
+\end{itemize}
+
+\textlight{\textbf{ตัวอย่าง Output ที่ต้องการ:}}
+\begin{codebox}{ผลลัพธ์ที่คาดหวัง}
+\begin{lstlisting}[style=python]
+Initial foods: ['pizza', 'burger', 'salad']
+After adding pasta: ['pizza', 'burger', 'salad', 'pasta']
+After removing salad: ['pizza', 'burger', 'pasta']
+Sorted foods: ['burger', 'pasta', 'pizza']
+Total foods: 3
+\end{lstlisting}
+\end{codebox}
+\textlight{พร้อมสร้าง Flowchart แสดงการทำงานของโปรแกรม}
+\end{exercisebox}
+
+\begin{exercisebox}{โจทย์ที่ 2: โปรแกรมประมวลผลชื่อ}
+\textlight{จงเขียนโปรแกรมประมวลผลชื่อง่ายๆ โดยใช้ String methods}
+
+\textlight{\textbf{ความต้องการ:}}
+\begin{itemize}
+    \item \textlight{รับชื่อ: "john doe"}
+    \item \textlight{แปลงเป็นตัวพิมพ์ใหญ่}
+    \item \textlight{นับจำนวนตัวอักษร (ไม่นับช่องว่าง)}
+    \item \textlight{แยกชื่อและนามสกุล}
+    \item \textlight{สร้างชื่อย่อ (ตัวอักษรแรกของแต่ละคำ)}
+\end{itemize}
+
+\textlight{\textbf{ตัวอย่าง Output ที่ต้องการ:}}
+\begin{codebox}{ผลลัพธ์ที่คาดหวัง}
+\begin{lstlisting}[style=python]
+Original name: john doe
+Uppercase name: JOHN DOE
+Number of characters: 7
+First name: john
+Last name: doe
+Initials: J.D.
+\end{lstlisting}
+\end{codebox}
+\textlight{พร้อมสร้าง Flowchart แสดงการทำงานของโปรแกรม}
+\end{exercisebox}
+
+\begin{exercisebox}{โจทย์ที่ 3: โปรแกรมคำนวณคะแนนง่าย}
+\textlight{จงเขียนโปรแกรมคำนวณคะแนนง่ายๆ โดยใช้ List methods}
+
+\textlight{\textbf{ความต้องการ:}}
+\begin{itemize}
+    \item \textlight{มีคะแนนสอบ: [85, 90, 78, 92, 88]}
+    \item \textlight{หาคะแนนสูงสุดและต่ำสุด}
+    \item \textlight{คำนวณค่าเฉลี่ย}
+    \item \textlight{นับจำนวนคะแนนที่มากกว่า 85}
+    \item \textlight{เรียงคะแนนจากมากไปน้อย}
+\end{itemize}
+
+\textlight{\textbf{ตัวอย่าง Output ที่ต้องการ:}}
+\begin{codebox}{ผลลัพธ์ที่คาดหวัง}
+\begin{lstlisting}[style=python]
+Scores: [85, 90, 78, 92, 88]
+Highest score: 92
+Lowest score: 78
+Average score: 86.6
+Scores above 85: 3
+Sorted scores: [92, 90, 88, 85, 78]
+\end{lstlisting}
+\end{codebox}
+\textlight{พร้อมสร้าง Flowchart แสดงการทำงานของโปรแกรม}
+\end{exercisebox}
+
+\section{ฟังก์ชัน (Functions)}
+
+\hspace{1cm}\textlight{ฟังก์ชัน (Functions) เป็นชุดคำสั่งที่ถูกจัดกลุ่มไว้ด้วยกันเพื่อทำงานเฉพาะอย่าง ฟังก์ชันช่วยให้โค้ดมีความเป็นระเบียบ สามารถนำกลับมาใช้ได้ (Reusable) และง่ายต่อการบำรุงรักษา การเขียนฟังก์ชันที่ดีจะช่วยลดการเขียนโค้ดซ้ำๆ และทำให้โปรแกรมมีประสิทธิภาพมากขึ้น}
+
+\subsection{การสร้างและเรียกใช้ฟังก์ชัน (Creating and Calling Functions)}
+
+\hspace{1cm}\textlight{การสร้างฟังก์ชันใน Python ใช้คำสั่ง \textbf{def} ตามด้วยชื่อฟังก์ชันและพารามิเตอร์ในวงเล็บ การเรียกใช้ฟังก์ชันทำได้โดยเขียนชื่อฟังก์ชันตามด้วยวงเล็บและใส่อาร์กิวเมนต์ (ถ้ามี)}
+
+\begin{noticebox}{โครงสร้างของฟังก์ชัน}
+
+\textlight{โครงสร้างพื้นฐานของฟังก์ชันใน Python:}
+
+\begin{codebox}{}
+\begin{lstlisting}[style=python]
+def function_name(parameters):
+    """Function description (Docstring)"""
+    # Function body
+    return value  # Optional
+\end{lstlisting}
+\end{codebox}
+
+\textlight{ส่วนประกอบสำคัญ:}
+\begin{itemize}
+    \item \textbf{def}: \textcolor{darkgray}{คำสั่งสำหรับประกาศฟังก์ชัน}
+    \item \textbf{function\_name}: \textcolor{darkgray}{ชื่อของฟังก์ชัน}
+    \item \textbf{parameters}: \textcolor{darkgray}{พารามิเตอร์ที่ฟังก์ชันรับเข้ามา}
+    \item \textbf{return}: \textcolor{darkgray}{คำสั่งส่งค่ากลับ (ไม่จำเป็นต้องมี)}
+\end{itemize}
+
+\end{noticebox}
+
+\begin{codebox}{(ตัวอย่าง) ฟังก์ชันพื้นฐานใน Python}
+\begin{lstlisting}[style=python]
+# Simple function without parameters
+def say_hello():
+    print("Hello, World!")
+
+# Function with parameters
+def greet(name):
+    print(f"Hello, {name}!")
+
+# Function that returns a value
+def add_numbers(a, b):
+    result = a + b
+    return result
+
+# Calling functions
+say_hello()
+greet("Alice")
+sum_result = add_numbers(5, 3)
+print("Sum:", sum_result)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Hello, World!
+Hello, Alice!
+Sum: 8
+\end{verbatim}
+\end{resultbox}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+% Function definition flowchart
+\node (start) [startstop] {Start};
+\node (def) [process, below of=start] {def add\_numbers(a, b)};
+\node (calc) [process, below of=def] {result = a + b};
+\node (return) [process, below of=calc] {return result};
+\node (call) [io, below of=return] {sum\_result = add\_numbers(5, 3)};
+\node (print) [io, below of=call] {print("Sum:", sum\_result)};
+\node (stop) [startstop, below of=print] {Stop};
+
+\draw [arrow] (start) -- (def);
+\draw [arrow] (def) -- (calc);
+\draw [arrow] (calc) -- (return);
+\draw [arrow] (return) -- (call);
+\draw [arrow] (call) -- (print);
+\draw [arrow] (print) -- (stop);
+
+\end{tikzpicture}
+\caption{Flowchart การสร้างและเรียกใช้ฟังก์ชัน}
+\end{figure}
+
+\vspace{7cm}
+
+\subsection{พารามิเตอร์และอาร์กิวเมนต์ (Parameters and Arguments)}
+
+\hspace{1cm}\textlight{พารามิเตอร์ (Parameters) คือตัวแปรที่กำหนดในฟังก์ชัน ส่วนอาร์กิวเมนต์ (Arguments) คือค่าที่ส่งให้ฟังก์ชันเมื่อเรียกใช้ Python มีวิธีการส่งอาร์กิวเมนต์หลายแบบ}
+
+\begin{noticebox}{ประเภทของพารามิเตอร์}
+
+\textlight{ประเภทของพารามิเตอร์ใน Python:}
+
+\begin{itemize}
+    \item \textbf{Positional Arguments}: \textcolor{darkgray}{อาร์กิวเมนต์ตามตำแหน่ง}
+    \item \textbf{Keyword Arguments}: \textcolor{darkgray}{อาร์กิวเมนต์ตามชื่อ}
+    \item \textbf{Default Parameters}: \textcolor{darkgray}{พารามิเตอร์ที่มีค่าเริ่มต้น}
+    \item \textbf{*args}: \textcolor{darkgray}{อาร์กิวเมนต์จำนวนไม่จำกัด}
+    \item \textbf{**kwargs}: \textcolor{darkgray}{อาร์กิวเมนต์แบบ keyword จำนวนไม่จำกัด}
+\end{itemize}
+
+\end{noticebox}
+
+\begin{codebox}{(ตัวอย่าง) ประเภทของพารามิเตอร์ใน Python}
+\begin{lstlisting}[style=python]
+# Function with default parameters
+def introduce(name, age=25, city="Bangkok"):
+    print(f"Name: {name}, Age: {age}, City: {city}")
+
+# Different ways to call the function
+introduce("Alice")  # Use default values
+introduce("Bob", 30)  # Specify age
+introduce("Charlie", city="Chiang Mai")  # Use keyword argument
+introduce("Diana", 28, "Phuket")  # Specify all values
+
+# Function that accepts unlimited arguments
+def sum_all(*numbers):
+    total = 0
+    for num in numbers:
+        total += num
+    return total
+
+result1 = sum_all(1, 2, 3)
+result2 = sum_all(1, 2, 3, 4, 5)
+print("Sum 1:", result1)
+print("Sum 2:", result2)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Name: Alice, Age: 25, City: Bangkok
+Name: Bob, Age: 30, City: Bangkok
+Name: Charlie, Age: 25, City: Chiang Mai
+Name: Diana, Age: 28, City: Phuket
+Sum 1: 6
+Sum 2: 15
+\end{verbatim}
+\end{resultbox}
+
+\subsection{ขอบเขตของตัวแปร (Variable Scope)}
+
+\hspace{1cm}\textlight{ขอบเขตของตัวแปร (Variable Scope) กำหนดว่าตัวแปรสามารถเข้าถึงได้จากส่วนไหนของโปรแกรม ใน Python มีขอบเขตหลัก 2 ประเภท คือ ขอบเขตทั่วไป (Global Scope) และขอบเขตท้องถิ่น (Local Scope)}
+
+\begin{noticebox}{ขอบเขตของตัวแปร}
+
+\textlight{ประเภทของขอบเขตตัวแปรใน Python:}
+
+\begin{itemize}
+    \item \textbf{Global Scope}: \textcolor{darkgray}{ตัวแปรที่สามารถเข้าถึงได้จากทุกส่วนของโปรแกรม}
+    \item \textbf{Local Scope}: \textcolor{darkgray}{ตัวแปรที่สามารถเข้าถึงได้เฉพาะภายในฟังก์ชัน}
+    \item \textbf{global keyword}: \textcolor{darkgray}{ใช้เพื่อแก้ไขตัวแปร global ภายในฟังก์ชัน}
+    \item \textbf{nonlocal keyword}: \textcolor{darkgray}{ใช้เพื่อแก้ไขตัวแปรในขอบเขตนอกสุด}
+\end{itemize}
+
+\end{noticebox}
+
+\begin{codebox}{(ตัวอย่าง) ขอบเขตของตัวแปรใน Python}
+\begin{lstlisting}[style=python]
+# Global variable
+global_var = "I am global"
+
+def test_scope():
+    # Local variable
+    local_var = "I am local"
+    print(f"Inside function - Global: {global_var}")
+    print(f"Inside function - Local: {local_var}")
+
+def modify_global():
+    global global_var
+    global_var = "I am modified global"
+    print(f"Modified global: {global_var}")
+
+# Call functions
+test_scope()
+print(f"Outside function - Global: {global_var}")
+
+modify_global()
+print(f"After modification - Global: {global_var}")
+
+# Example of using nonlocal
+def outer_function():
+    outer_var = "I am outer"
+    
+    def inner_function():
+        nonlocal outer_var
+        outer_var = "I am modified outer"
+        print(f"Inner function: {outer_var}")
+    
+    inner_function()
+    print(f"Outer function: {outer_var}")
+
+outer_function()
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Inside function - Global: I am global
+Inside function - Local: I am local
+Outside function - Global: I am global
+Modified global: I am modified global
+After modification - Global: I am modified global
+Inner function: I am modified outer
+Outer function: I am modified outer
+\end{verbatim}
+\end{resultbox}
+
+\subsection{ฟังก์ชัน Built-in ที่สำคัญ (Important Built-in Functions)}
+
+\hspace{1cm}\textlight{Python มีฟังก์ชัน Built-in จำนวนมากที่พร้อมใช้งานทันทีโดยไม่ต้อง import เพิ่มเติม ฟังก์ชันเหล่านี้ช่วยให้นักศึกษาสามารถเขียนโปรแกรมได้อย่างมีประสิทธิภาพมากขึ้น เช่น การแปลงข้อมูล การกรองข้อมูล หรือการคำนวณค่าสถิติพื้นฐาน ซึ่งเป็นทักษะที่จำเป็นในการพัฒนาโปรแกรม}
+
+\begin{codebox}{(ตัวอย่าง) ฟังก์ชัน Built-in ที่สำคัญใน Python}
+\begin{lstlisting}[style=python]
+# Functions for data type conversion
+numbers_str = ["1", "2", "3", "4", "5"]
+numbers_int = list(map(int, numbers_str))
+print("Converted to int:", numbers_int)
+
+# filter() function - filtering data
+def is_even(n):
+    return n % 2 == 0
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+even_numbers = list(filter(is_even, numbers))
+print("Even numbers:", even_numbers)
+
+# max(), min(), sum() functions
+scores = [85, 92, 78, 96, 87]
+print("Max score:", max(scores))
+print("Min score:", min(scores))
+print("Total score:", sum(scores))
+print("Average score:", sum(scores) / len(scores))
+
+# sorted() function
+names = ["Alice", "Charlie", "Bob", "Diana"]
+sorted_names = sorted(names)
+print("Sorted names:", sorted_names)
+
+# zip() function
+students = ["Alice", "Bob", "Charlie"]
+scores = [85, 92, 78]
+student_scores = list(zip(students, scores))
+print("Student scores:", student_scores)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Converted to int: [1, 2, 3, 4, 5]
+Even numbers: [2, 4, 6, 8, 10]
+Max score: 96
+Min score: 78
+Total score: 438
+Average score: 87.6
+Sorted names: ['Alice', 'Bob', 'Charlie', 'Diana']
+Student scores: [('Alice', 85), ('Bob', 92), ('Charlie', 78)]
+\end{verbatim}
+\end{resultbox}
+
+\subsection{บททดสอบ}
+
+\begin{exercisebox}{โจทย์ที่ 1: โปรแกรมคำนวณพื้นฐาน}
+\textlight{จงเขียนโปรแกรมคำนวณง่ายๆ โดยใช้ Functions}
+
+\textlight{\textbf{ความต้องการ:}}
+\begin{itemize}
+    \item \textlight{สร้างฟังก์ชัน add(a, b) สำหรับการบวก}
+    \item \textlight{สร้างฟังก์ชัน multiply(a, b) สำหรับการคูณ}
+    \item \textlight{สร้างฟังก์ชัน square(x) สำหรับการยกกำลังสอง}
+    \item \textlight{สร้างฟังก์ชัน calculate\_area(length, width) สำหรับคำนวณพื้นที่สี่เหลี่ยม}
+    \item \textlight{เรียกใช้ฟังก์ชันทั้งหมดและแสดงผล}
+\end{itemize}
+
+\textlight{\textbf{ตัวอย่าง Output ที่ต้องการ:}}
+\begin{codebox}{ผลลัพธ์ที่คาดหวัง}
+\begin{lstlisting}[style=python]
+Addition: 5 + 3 = 8
+Multiplication: 4 * 6 = 24
+Square of 7 = 49
+Rectangle area (5 x 3) = 15 square units
+\end{lstlisting}
+\end{codebox}
+\textlight{พร้อมสร้าง Flowchart แสดงการทำงานของโปรแกรม}
+\end{exercisebox}
+
+\begin{exercisebox}{โจทย์ที่ 2: โปรแกรมจัดการคะแนนง่าย}
+\textlight{จงเขียนโปรแกรมจัดการคะแนนโดยใช้ Functions}
+
+\textlight{\textbf{ความต้องการ:}}
+\begin{itemize}
+    \item \textlight{สร้างฟังก์ชัน calculate\_average(scores) สำหรับคำนวณค่าเฉลี่ย}
+    \item \textlight{สร้างฟังก์ชัน find\_highest(scores) สำหรับหาคะแนนสูงสุด}
+    \item \textlight{สร้างฟังก์ชัน count\_passed(scores, passing\_score) สำหรับนับจำนวนที่ผ่าน}
+    \item \textlight{สร้างฟังก์ชัน get\_grade(score) สำหรับแปลงคะแนนเป็นเกรด A, B, C, D, F}
+    \item \textlight{ใช้คะแนนตัวอย่าง [85, 92, 78, 96, 73] และแสดงผลสถิติ}
+\end{itemize}
+
+\textlight{\textbf{ตัวอย่าง Output ที่ต้องการ:}}
+\begin{codebox}{ผลลัพธ์ที่คาดหวัง}
+\begin{lstlisting}[style=python]
+Scores: [85, 92, 78, 96, 73]
+Average score: 84.8
+Highest score: 96
+Students passed (>=60): 5
+Grade for score 85: B
+Grade for score 92: A
+Grade for score 78: C
+\end{lstlisting}
+\end{codebox}
+\textlight{พร้อมสร้าง Flowchart แสดงการทำงานของโปรแกรม}
+\end{exercisebox}
+
+\vspace{6cm}
+
+\begin{noticebox}{การใช้ Random Module}
+
+\textlight{สำหรับการสุ่มตัวเลขใน Python:}
+
+\begin{itemize}
+    \item \textbf{import random}: \textcolor{darkgray}{นำเข้า module สำหรับการสุ่ม}
+    \item \textbf{random.randint(a, b)}: \textcolor{darkgray}{สุ่มเลขจำนวนเต็มระหว่าง a ถึง b}
+    \item \textbf{random.choice(list)}: \textcolor{darkgray}{สุ่มเลือกสมาชิกจากรายการ}
+    \item \textbf{random.random()}: \textcolor{darkgray}{สุ่มเลขทศนิยมระหว่าง 0.0 ถึง 1.0}
+\end{itemize}
+
+\end{noticebox}
+
+\begin{exercisebox}{โจทย์ที่ 3: เกมทายตัวเลข}
+\textlight{จงเขียนเกมทายตัวเลขง่ายๆ โดยใช้ Functions}
+
+\textlight{\textbf{ความต้องการ:}}
+\begin{itemize}
+    \item \textlight{สร้างฟังก์ชัน generate\_number() สำหรับสุ่มตัวเลข 1-50}
+    \item \textlight{สร้างฟังก์ชัน check\_guess(secret, guess) สำหรับเปรียบเทียบคำตอบ}
+    \item \textlight{สร้างฟังก์ชัน get\_hint(secret, guess) สำหรับให้คำแนะนำ}
+    \item \textlight{ให้ผู้เล่นทาย 3 ครั้ง}
+    \item \textlight{แสดงผลลัพธ์การเล่น}
+\end{itemize}
+
+\textlight{\textbf{ตัวอย่าง Output ที่ต้องการ:}}
+\begin{codebox}{ผลลัพธ์ที่คาดหวัง}
+\begin{lstlisting}[style=python]
+Guess the number (1-50): 25
+Too high! Try again.
+Guess the number (1-50): 15
+Too low! Try again.
+Guess the number (1-50): 20
+Correct! You win in 3 attempts.
+\end{lstlisting}
+\end{codebox}
+
+\end{exercisebox}
+
+\vspace{9cm}
+
+\section{การวนซ้ำด้วย While Loop}
+
+\hspace{1cm}\textlight{การวนซ้ำด้วย While Loop เป็นโครงสร้างการควบคุมที่สำคัญในการเขียนโปรแกรม ช่วยให้โปรแกรมสามารถทำงานซ้ำๆ ตราบใดที่เงื่อนไขที่กำหนดยังเป็นจริง (True) While Loop เหมาะสำหรับสถานการณ์ที่เราไม่ทราบจำนวนรอบการวนซ้ำล่วงหน้า เช่น การรับข้อมูลจากผู้ใช้จนกว่าจะถูกต้อง หรือการประมวลผลข้อมูลจนครบทุกรายการ ซึ่งเป็นทักษะที่นักศึกษาจะพบและใช้บ่อยในการแก้ปัญหาจริง}
+
+\subsection{โครงสร้างพื้นฐานของ While Loop}
+
+\hspace{1cm}\textlight{While Loop ประกอบด้วยส่วนสำคัญ 3 ส่วน คือ เงื่อนไขการวนซ้ำ บล็อกคำสั่งที่จะทำงานซ้ำ และการอัพเดตตัวแปร การเข้าใจโครงสร้างนี้อย่างถูกต้องจะช่วยให้นักศึกษาเขียนโปรแกรมได้อย่างปลอดภัยและมีประสิทธิภาพ โดยเฉพาะการป้องกันปัญหา Infinite Loop ที่มักเกิดขึ้นกับผู้เริ่มเรียนโปรแกรมมิ่ง}
+
+\begin{noticebox}{โครงสร้างของ While Loop}
+
+\textlight{โครงสร้างพื้นฐานของ While Loop ใน Python:}
+
+\begin{codebox}{}
+\begin{lstlisting}[style=python]
+while condition:
+    # Statements to be repeated
+    # Must change variables related to condition
+    pass
+\end{lstlisting}
+\end{codebox}
+
+\textlight{ส่วนประกอบสำคัญ:}
+\begin{itemize}
+    \item \textbf{while}: \textcolor{darkgray}{คำสั่งสำหรับเริ่มต้นลูป}
+    \item \textbf{condition}: \textcolor{darkgray}{เงื่อนไขที่ต้องเป็นจริงเพื่อให้ลูปทำงานต่อ}
+    \item \textbf{loop body}: \textcolor{darkgray}{ชุดคำสั่งที่จะทำงานซ้ำ}
+    \item \textbf{update}: \textcolor{darkgray}{การเปลี่ยนแปลงตัวแปรเพื่อควบคุมลูป}
+\end{itemize}
+
+\end{noticebox}
+
+\begin{codebox}{(ตัวอย่าง) While Loop พื้นฐานใน Python}
+\begin{lstlisting}[style=python]
+# Example 1: Count from 1 to 5
+count = 1
+while count <= 5:
+    print("Count:", count)
+    count += 1
+
+print("Loop finished!")
+
+# Example 2: Sum numbers from 1 to 5
+total = 0
+number = 1
+while number <= 5:
+    total += number
+    number += 1
+
+print("Total sum:", total)
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Count: 1
+Count: 2
+Count: 3
+Count: 4
+Count: 5
+Loop finished!
+Total sum: 15
+\end{verbatim}
+\end{resultbox}
+
+\vspace{2cm}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+
+% While loop flowchart
+\node (start) [startstop] {Start};
+\node (init) [process, below of=start] {count = 1};
+\node (condition) [decision, below of=init, yshift=-1.5cm] {count <= 5};
+\node (print) [io, below of=condition, yshift=-2cm] {Print "Count:", count};
+\node (increment) [process, below of=print] {count += 1};
+\node (stop) [startstop, right of=condition, xshift=4cm] {Stop};
+
+\draw [arrow] (start) -- (init);
+\draw [arrow] (init) -- (condition);
+\draw [arrow] (condition) -- node[anchor=west, xshift=-1.2cm, yshift=0.4cm] {True} (print);
+\draw [arrow] (print) -- (increment);
+\draw [arrow] (increment.west) -- ++(-3cm,0) |- (condition.west);
+\draw [arrow] (condition) -- node[anchor=south, yshift=0.3cm] {False} (stop);
+
+\end{tikzpicture}
+\caption{Flowchart ของ While Loop พื้นฐาน}
+\end{figure}
+
+\vspace{4cm}
+
+\subsection{การควบคุม While Loop ด้วย break และ continue}
+
+\hspace{1cm}\textlight{นอกจากเงื่อนไขหลักแล้ว Python ยังมีคำสั่งพิเศษสำหรับควบคุมการทำงานของลูปได้อย่างละเอียด ได้แก่ \textbf{break} และ \textbf{continue} การเข้าใจและใช้คำสั่งเหล่านี้อย่างถูกต้องจะช่วยให้นักศึกษาสามารถเขียนโปรแกรมที่มีความยืดหยุ่นและตอบสนองต่อสถานการณ์ต่างๆ ได้ดีขึ้น}
+
+\begin{noticebox}{คำสั่งควบคุมลูป}
+
+\textlight{คำสั่งสำหรับควบคุมการทำงานของลูป:}
+
+\begin{itemize}
+    \item \textbf{break}: \textcolor{darkgray}{ออกจากลูปทันที (ไม่ว่าเงื่อนไขจะเป็นจริงหรือเท็จ)}
+    \item \textbf{continue}: \textcolor{darkgray}{ข้ามการทำงานที่เหลือในรอบปัจจุบัน และไปรอบถัดไป}
+    \item \textbf{else}: \textcolor{darkgray}{ทำงานเมื่อลูปจบแบบปกติ (ไม่ได้ใช้ break)}
+    \item \textbf{pass}: \textcolor{darkgray}{ไม่ทำอะไร (ใช้เป็น placeholder)}
+\end{itemize}
+
+\end{noticebox}
+
+\begin{codebox}{(ตัวอย่าง) การใช้ break และ continue ใน While Loop}
+\begin{lstlisting}[style=python]
+# Example of using break
+count = 1
+while count <= 10:
+    if count == 5:
+        break  # Stop loop when count = 5
+    print(f"Count: {count}")
+    count += 1
+
+# Example of using continue
+number = 1
+while number <= 5:
+    if number == 3:
+        number += 1
+        continue  # Skip number 3
+    print(f"Number: {number}")
+    number += 1
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Count: 1
+...
+
+Number: 1
+...
+\end{verbatim}
+\end{resultbox}
+
+\subsection{While Loop กับการประมวลผลข้อมูล}
+
+\hspace{1cm}\textlight{While Loop มีบทบาทสำคัญในการประมวลผลข้อมูลเมื่อเราไม่ทราบขนาดหรือจำนวนข้อมูลที่แน่นอนล่วงหน้า เช่น การอ่านไฟล์ข้อมูล การรับ input จากผู้ใช้แบบต่อเนื่อง หรือการค้นหาข้อมูลที่ตรงตามเงื่อนไข ทักษะนี้มีความสำคัญมากในการพัฒนาแอปพลิเคชันที่ทำงานกับข้อมูลจริง}
+
+\begin{codebox}{(ตัวอย่าง) While Loop ในการประมวลผลข้อมูล}
+\begin{lstlisting}[style=python]
+# Example 1: Find average
+numbers = [10, 20, 30, 40, 50]
+total = 0
+index = 0
+
+while index < len(numbers):
+    total += numbers[index]
+    index += 1
+
+average = total / len(numbers)
+print(f"Average: {average}")
+
+# Example 2: Count even numbers
+numbers = [1, 2, 3, 4, 5, 6, 7, 8]
+even_count = 0
+index = 0
+
+while index < len(numbers):
+    if numbers[index] % 2 == 0:
+        even_count += 1
+    index += 1
+
+print(f"Even numbers count: {even_count}")
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Average: 30.0
+Even numbers count: 4
+\end{verbatim}
+\end{resultbox}
+
+\vspace{3cm}
+
+\subsection{While Loop กับ Nested Loops}
+
+\hspace{1cm}\textlight{การซ้อน While Loop เป็นเทคนิคขั้นสูงที่ใช้สำหรับการประมวลผลข้อมูลที่มีโครงสร้างหลายมิติ เช่น การทำงานกับ matrix การสร้างตารางข้อมูล หรือการจำลองสถานการณ์ที่ซับซ้อน แม้จะเป็นเทคนิคที่ต้องใช้ความระมัดระวังในการเขียนเงื่อนไข แต่เป็นทักษะที่สำคัญสำหรับนักศึกษาระดับปริญญาตรี}
+
+\begin{codebox}{(ตัวอย่าง) Nested While Loops ใน Python}
+\begin{lstlisting}[style=python]
+# Example 1: Create rectangle
+row = 1
+while row <= 3:
+    col = 1
+    while col <= 4:
+        print("*", end=" ")
+        col += 1
+    print()  # New line
+    row += 1
+
+# Example 2: 2x2 multiplication table
+row = 1
+while row <= 2:
+    col = 1
+    while col <= 2:
+        result = row * col
+        print(f"{row}x{col}={result}", end="  ")
+        col += 1
+    print()
+    row += 1
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+* * * * 
+* * * * 
+* * * * 
+
+1x1=1  1x2=2  
+2x1=2  2x2=4  
+\end{verbatim}
+\end{resultbox}
+
+\vspace{2.5cm}
+
+\subsection{การป้องกัน Infinite Loop}
+
+\hspace{1cm}\textlight{Infinite Loop หรือการวนซ้ำแบบไม่สิ้นสุดเป็นปัญหาที่พบบ่อยและสำคัญในการเขียนโปรแกรม เกิดจากเงื่อนไขที่ไม่เปลี่ยนแปลงหรือไม่มีทางเป็นเท็จได้ การเข้าใจและป้องกันปัญหานี้เป็นทักษะพื้นฐานที่นักศึกษาต้องเรียนรู้ เพื่อให้สามารถเขียนโปรแกรมที่ทำงานได้อย่างมั่นคงและปลอดภัย}
+
+\begin{noticebox}{เทคนิคป้องกัน Infinite Loop}
+
+\textlight{วิธีการป้องกัน Infinite Loop:}
+
+\begin{itemize}
+    \item \textbf{ตรวจสอบเงื่อนไข}: \textcolor{darkgray}{ให้แน่ใจว่าเงื่อนไขสามารถเป็นเท็จได้}
+    \item \textbf{อัพเดทตัวแปร}: \textcolor{darkgray}{มีการเปลี่ยนแปลงตัวแปรในเงื่อนไขภายในลูป}
+    \item \textbf{ใช้ Counter}: \textcolor{darkgray}{กำหนดจำนวนรอบสูงสุดเป็นเงื่อนไขสำรอง}
+    \item \textbf{Debug อย่างระมัดระวัง}: \textcolor{darkgray}{ทดสอบลูปด้วยข้อมูลง่ายๆ ก่อน}
+\end{itemize}
+
+\end{noticebox}
+
+\begin{codebox}{(ตัวอย่าง) การป้องกัน Infinite Loop}
+\begin{lstlisting}[style=python]
+# Wrong example - Infinite Loop
+# count = 1
+# while count <= 5:
+#     print(count)
+#     # Forgot to increment count, causing infinite loop
+
+# Correct example - Update variables
+count = 1
+while count <= 5:
+    print(f"Count: {count}")
+    count += 1  # Update variable to end the loop
+
+# Example using safety counter
+attempts = 0
+max_attempts = 3
+user_input = ""
+
+while user_input != "exit" and attempts < max_attempts:
+    user_input = input(f"Enter 'exit' (attempt {attempts + 1}/{max_attempts}): ")
+    print(f"You entered: {user_input}")
+    attempts += 1
+
+if attempts >= max_attempts:
+    print("Maximum attempts reached.")
+\end{lstlisting}
+\end{codebox}
+
+\begin{resultbox}{ผลลัพธ์}
+\begin{verbatim}
+Count: 1
+Count: 2
+Count: 3
+Count: 4
+Count: 5
+
+Enter 'exit' (attempt 1/3): hello
+You entered: hello
+Enter 'exit' (attempt 2/3): world
+You entered: world
+Enter 'exit' (attempt 3/3): exit
+You entered: exit
+\end{verbatim}
+\end{resultbox}
+
+\vspace{6cm}
+
+\subsection{บททดสอบ}
+
+\begin{exercisebox}{โจทย์ที่ 1: โปรแกรมจัดการรายการสินค้าง่าย}
+\textlight{จงเขียนโปรแกรมจัดการรายการสินค้าโดยใช้ While Loop}
+
+\textlight{\textbf{ความต้องการ:}}
+\begin{itemize}
+    \item \textlight{สร้างเมนูแสดงตัวเลือก: 1-Add, 2-Remove, 3-Show, 4-Exit}
+    \item \textlight{ใช้ While Loop เพื่อให้โปรแกรมทำงานต่อเนื่องจนกว่าผู้ใช้เลือก Exit}
+    \item \textlight{เริ่มต้นด้วยรายการสินค้า: ["apple", "banana"]}
+    \item \textlight{เพิ่มสินค้าใหม่เมื่อเลือก Add}
+    \item \textlight{ลบสินค้าเมื่อเลือก Remove}
+    \item \textlight{แสดงรายการสินค้าทั้งหมดเมื่อเลือก Show}
+\end{itemize}
+
+\textlight{\textbf{ตัวอย่าง Output ที่ต้องการ:}}
+\begin{codebox}{ผลลัพธ์ที่คาดหวัง}
+\begin{lstlisting}[style=python]
+=== Shopping List Manager ===
+1. Add item
+2. Remove item  
+3. Show all items
+4. Exit
+Enter choice (1-4): 3
+Current items: ['apple', 'banana']
+
+Enter choice (1-4): 1
+Enter item to add: orange
+Added: orange
+
+Enter choice (1-4): 3
+Current items: ['apple', 'banana', 'orange']
+
+Enter choice (1-4): 4
+Goodbye!
+\end{lstlisting}
+\end{codebox}
+
+\end{exercisebox}
+
+\begin{exercisebox}{โจทย์ที่ 2: เกมทายตัวเลขง่าย}
+\textlight{จงเขียนเกมทายตัวเลขโดยใช้ While Loop}
+
+\textlight{\textbf{ความต้องการ:}}
+\begin{itemize}
+    \item \textlight{สุ่มตัวเลข 1-20 สำหรับให้ผู้เล่นทาย}
+    \item \textlight{ใช้ While Loop ให้ผู้เล่นทายได้สูงสุด 5 ครั้ง}
+    \item \textlight{ให้คำแนะนำ "Too high!" หรือ "Too low!" หลังแต่ละครั้ง}
+    \item \textlight{แสดงจำนวนครั้งที่เหลือหลังแต่ละครั้ง}
+    \item \textlight{ถ้าทายถูกให้แสดงผลชนะและจบเกม}
+    \item \textlight{ถ้าทายครบ 5 ครั้งแล้วยังไม่ถูกให้แสดงคำตอบ}
+\end{itemize}
+
+\textlight{\textbf{ตัวอย่าง Output ที่ต้องการ:}}
+\begin{codebox}{ผลลัพธ์ที่คาดหวัง}
+\begin{lstlisting}[style=python]
+=== Number Guessing Game ===
+I'm thinking of a number between 1-20
+You have 5 attempts to guess it!
+
+Attempt 1/5 - Enter your guess: 15
+Too high! Try again.
+
+Attempt 2/5 - Enter your guess: 8
+Too low! Try again.
+
+Attempt 3/5 - Enter your guess: 12
+Congratulations! You guessed it in 3 attempts!
+The number was 12
+\end{lstlisting}
+\end{codebox}
+
+\end{exercisebox}
+
+\begin{exercisebox}{โจทย์ที่ 3: โปรแกรมคำนวณคะแนนสอบ}
+\textlight{จงเขียนโปรแกรมคำนวณคะแนนสอบโดยใช้ While Loop}
+
+\textlight{\textbf{ความต้องการ:}}
+\begin{itemize}
+    \item \textlight{ใช้ While Loop รับคะแนนสอบจากผู้ใช้ (ป้อน -1 เพื่อจบ)}
+    \item \textlight{ตรวจสอบคะแนนต้องอยู่ระหว่าง 0-100 เท่านั้น}
+    \item \textlight{คำนวณค่าเฉลี่ย คะแนนสูงสุด และต่ำสุด}
+    \item \textlight{นับจำนวนคะแนนที่ผ่าน (≥60) และไม่ผ่าน (<60)}
+    \item \textlight{แสดงผลสรุปเมื่อผู้ใช้ป้อน -1}
+    \item \textlight{ถ้าไม่มีคะแนนให้แสดงข้อความเตือน}
+\end{itemize}
+
+\textlight{\textbf{ตัวอย่าง Output ที่ต้องการ:}}
+\begin{codebox}{ผลลัพธ์ที่คาดหวัง}
+\begin{lstlisting}[style=python]
+=== Score Calculator ===
+Enter scores (0-100), enter -1 to finish:
+
+Enter score: 85
+Valid score added: 85
+
+Enter score: 92
+Valid score added: 92
+
+Enter score: 150
+Invalid! Score must be between 0-100
+
+Enter score: 78
+Valid score added: 78
+
+Enter score: -1
+
+=== Summary ===
+Total scores: 3
+Scores: [85, 92, 78]
+Average: 85.0
+Highest: 92
+Lowest: 78
+Passed (>=60): 3
+Failed (<60): 0
+\end{lstlisting}
+\end{codebox}
+
+\end{exercisebox}
+
+\end{document}
